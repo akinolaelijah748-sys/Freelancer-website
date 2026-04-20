@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiverr Inbox AI · AI Brain</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== DARK MODE (DEFAULT) ===== */
+        body.dark-mode { 
+            font-family: 'Inter', sans-serif;
+            background-color: #0B1121;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .sidebar {
+            background-color: #0f172a;
+            border-right: 1px solid #1e293b;
+        }
+
+        body.dark-mode .dashboard-card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+        }
+
+        body.dark-mode .dashboard-card:hover {
+            border-color: #4f46e5;
+        }
+
+        body.dark-mode .bg-card-dark {
+            background-color: #0f172a;
+        }
+
+        body.dark-mode .border-dark {
+            border-color: #1e293b;
+        }
+
+        body.dark-mode .text-primary {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .text-secondary {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .text-muted {
+            color: #64748b;
+        }
+
+        body.dark-mode .bg-hover-dark {
+            background-color: #1e293b;
+        }
+        body.dark-mode .bg-hover-dark:hover {
+            background-color: #334155;
+        }
+
+        body.dark-mode .nav-link {
+            color: #94a3b8;
+        }
+        body.dark-mode .nav-link:hover {
+            background-color: #1e293b;
+            color: #f1f5f9;
+        }
+        body.dark-mode .nav-link.active {
+            background-color: #1e293b;
+            color: #818cf8;
+        }
+
+        body.dark-mode .section-header {
+            color: #64748b;
+        }
+
+        body.dark-mode .extension-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid #1e293b;
+        }
+
+        body.dark-mode .notification-bell {
+            background-color: #1e293b;
+            color: #94a3b8;
+        }
+        body.dark-mode .notification-bell:hover {
+            background-color: #334155;
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .notification-dot {
+            border-color: #0f172a;
+        }
+
+        /* Search bar in dark mode */
+        body.dark-mode .search-bar {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        body.dark-mode .search-bar:focus {
+            border-color: #4f46e5;
+            background-color: #1e293b;
+        }
+        body.dark-mode .search-bar::placeholder {
+            color: #64748b;
+        }
+        body.dark-mode .search-icon {
+            color: #64748b;
+        }
+
+        /* ===== LIGHT MODE ===== */
+        body.light-mode {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        body.light-mode .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        body.light-mode .dashboard-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        body.light-mode .dashboard-card:hover {
+            border-color: #4f46e5;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+
+        body.light-mode .bg-card-dark {
+            background-color: #ffffff;
+        }
+
+        body.light-mode .border-dark {
+            border-color: #e2e8f0;
+        }
+
+        body.light-mode .text-primary {
+            color: #0f172a;
+        }
+
+        body.light-mode .text-secondary {
+            color: #475569;
+        }
+
+        body.light-mode .text-muted {
+            color: #64748b;
+        }
+
+        body.light-mode .bg-hover-dark {
+            background-color: #f1f5f9;
+        }
+        body.light-mode .bg-hover-dark:hover {
+            background-color: #e2e8f0;
+        }
+
+        body.light-mode .nav-link {
+            color: #64748b;
+        }
+        body.light-mode .nav-link:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        body.light-mode .nav-link.active {
+            background-color: #f1f5f9;
+            color: #4f46e5;
+        }
+
+        body.light-mode .section-header {
+            color: #94a3b8;
+        }
+
+        body.light-mode .extension-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid #e2e8f0;
+        }
+
+        body.light-mode .notification-bell {
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+        body.light-mode .notification-bell:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        body.light-mode .notification-dot {
+            border-color: #ffffff;
+        }
+
+        /* Search bar in light mode */
+        body.light-mode .search-bar {
+            background-color: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #0f172a;
+        }
+        body.light-mode .search-bar:focus {
+            border-color: #4f46e5;
+            background-color: #ffffff;
+        }
+        body.light-mode .search-bar::placeholder {
+            color: #94a3b8;
+        }
+        body.light-mode .search-icon {
+            color: #94a3b8;
+        }
+
+        /* Premium noise texture */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        /* Ambient glow */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+            background: #cbd5e1;
+            border-radius: 20px; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Sidebar */
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+
+        /* Card styles */
+        .dashboard-card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        .dashboard-card:hover {
+            border-color: #4f46e5;
+        }
+
+        body.light-mode .dashboard-card {
+            background-color: #ffffff;
+            border-color: #e2e8f0;
+        }
+
+        /* Feature card */
+        .feature-card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+        }
+        .feature-card:hover {
+            border-color: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        body.light-mode .feature-card {
+            background-color: #ffffff;
+            border-color: #e2e8f0;
+        }
+
+        /* Navigation link styles */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .nav-link i {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Section header */
+        .section-header {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            padding: 0 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Profile circle */
+        .profile-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .profile-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Notification bell */
+        .notification-bell {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .notification-bell:hover {
+            background-color: #334155;
+            color: #f1f5f9;
+        }
+
+        body.light-mode .notification-bell {
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+        body.light-mode .notification-bell:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #0f172a;
+        }
+
+        body.light-mode .notification-dot {
+            border-color: #ffffff;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            border: none;
+            margin-right: 4px;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05) rotate(15deg);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.5);
+        }
+
+        body.light-mode .theme-toggle {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Toggle switch */
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            border-radius: 9999px;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .toggle-switch span {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 9999px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .toggle-switch.active {
+            background-color: #4f46e5;
+        }
+        .toggle-switch.active span {
+            transform: translateX(20px);
+        }
+        .toggle-switch.inactive {
+            background-color: #334155;
+        }
+
+        body.light-mode .toggle-switch.inactive {
+            background-color: #cbd5e1;
+        }
+
+        /* Extension card */
+        .extension-card {
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+        }
+
+        /* Learning card */
+        .learning-card {
+            transition: all 0.2s ease;
+        }
+        .learning-card:hover {
+            border-color: #4f46e5;
+            background-color: #1e293b;
+        }
+
+        body.light-mode .learning-card:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Insight badge */
+        .insight-badge {
+            transition: all 0.2s ease;
+        }
+        .insight-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #1e293b, transparent);
+        }
+
+        body.light-mode .divider {
+            background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+        }
+
+        /* Dashboard text styles */
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #f1f5f9;
+        }
+
+        .dashboard-subtitle {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        body.light-mode .dashboard-title {
+            color: #0f172a;
+        }
+
+        body.light-mode .card-title {
+            color: #0f172a;
+        }
+
+        /* Empty state styles */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+        }
+        .empty-state i {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased dark-mode">
+
+    <!-- Ambient Backgrounds -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobileOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity duration-500 opacity-0" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar fixed lg:static inset-y-0 left-0 z-50 w-64 transform -translate-x-full lg:translate-x-0 flex flex-col shadow-2xl transition-all duration-500">
+        
+        <!-- Sidebar Header -->
+        <div class="h-20 flex items-center gap-3 px-5 border-b border-dark flex-shrink-0">
+            <div class="w-9 h-9 bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] rounded-lg flex items-center justify-center text-white shadow-lg">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-primary text-base tracking-tight">
+                    Inbox AI CRM
+                </h1>
+                <p class="text-[10px] font-medium text-muted tracking-wider mt-0.5">Fiverr Seller Suite</p>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden ml-auto text-muted hover:text-primary p-1 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
+            
+            <div class="section-header text-muted">Menu</div>
+
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="nav-link">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- AI Intelligent (with dropdown) - ACTIVE -->
+            <div class="mt-1">
+                <button onclick="toggleAiMenu()" class="w-full nav-link justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="brain" class="text-[#818cf8]"></i>
+                        <span class="text-[#818cf8]">AI Intelligent</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform text-[#818cf8]" id="aiChevron" style="transform: rotate(180deg);"></i>
+                </button>
+
+                <div id="aiSubmenu" class="ml-4 pl-4 border-l border-dark mt-1 space-y-1" style="max-height: 200px; opacity: 1;">
+                    <a href="brain.html" class="nav-link !pl-3 text-sm active">
+                        <span class="w-1 h-1 rounded-full bg-[#4f46e5]"></span>
+                        <span class="text-[#818cf8]">AI Brain</span>
+                    </a>
+                    <a href="workflow.html" class="nav-link !pl-3 text-sm">
+                        <span class="w-1 h-1 rounded-full bg-muted"></span>
+                        <span>Workflow</span>
+                    </a>
+                    <a href="instructions.html" class="nav-link !pl-3 text-sm">
+                        <span class="w-1 h-1 rounded-full bg-muted"></span>
+                        <span>Instructions</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Management -->
+            <a href="order-management.html" class="nav-link mt-1">
+                <i data-lucide="shopping-bag"></i>
+                <span>Order Management</span>
+            </a>
+
+            <!-- Conversation Inbox -->
+            <a href="inbox.html" class="nav-link">
+                <i data-lucide="message-square"></i>
+                <span>Conversation Inbox</span>
+            </a>
+
+            <!-- Template Engine -->
+            <a href="templates.html" class="nav-link">
+                <i data-lucide="layout-template"></i>
+                <span>Template Engine</span>
+            </a>
+
+            <!-- Personalization -->
+            <a href="personalization.html" class="nav-link">
+                <i data-lucide="sparkles"></i>
+                <span>Personalization</span>
+            </a>
+
+            <!-- Reminder System -->
+            <a href="reminders.html" class="nav-link">
+                <i data-lucide="bell-ring"></i>
+                <span>Reminder System</span>
+            </a>
+
+            <!-- API Management -->
+            <a href="api-management.html" class="nav-link">
+                <i data-lucide="webhook"></i>
+                <span>API Management</span>
+            </a>
+        </div>
+
+        <!-- Chrome Extension Card -->
+        <div class="px-3 py-4 border-t border-dark">
+            <div class="extension-card">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] flex items-center justify-center text-white shrink-0">
+                        <i data-lucide="chrome" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-primary">Chrome Extension</p>
+                        <p class="text-xs text-secondary mt-1">Get AI replies directly in your Fiverr inbox</p>
+                        <button class="mt-3 text-xs font-medium text-[#818cf8] hover:text-[#a78bfa] transition-colors">
+                            Download Extension →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Profile Footer -->
+        <div class="px-3 py-4 border-t border-dark">
+            <div class="flex items-center gap-3">
+                <div class="profile-circle" id="user-initials">
+                    U
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-primary truncate user-full-name">Loading...</p>
+                    <p class="text-[10px] text-muted truncate user-email-display">Loading...</p>
+                </div>
+                <button onclick="handleSignOut()" class="text-muted hover:text-[#f87171] transition-colors p-1.5 hover:bg-hover-dark rounded-lg" title="Sign out">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT - AI BRAIN SETTINGS ===== -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-card-dark">
+        
+        <!-- Top Header -->
+        <header class="h-16 bg-card-dark/80 backdrop-blur-xl border-b border-dark flex items-center justify-between px-5 lg:px-6 sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 text-muted hover:text-primary hover:bg-hover-dark rounded-lg transition-colors">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <h2 class="text-base font-semibold text-primary">AI Brain</h2>
+                <span class="text-[8px] font-medium px-1.5 py-0.5 bg-[#4f46e5]/20 text-[#818cf8] rounded-full border border-[#4f46e5]/30" id="live-status">Live</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Search -->
+                <div class="hidden md:flex items-center relative">
+                    <i data-lucide="search" class="absolute left-3 w-4 h-4 search-icon"></i>
+                    <input type="text" placeholder="Search settings..." class="search-bar pl-9 pr-4 py-2 rounded-lg text-sm w-64 focus:outline-none focus:ring-1 focus:ring-[#4f46e5] transition-all">
+                </div>
+
+                <!-- Theme Toggle -->
+                <div class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                    <i data-lucide="sun" class="w-4 h-4" id="themeIcon"></i>
+                </div>
+
+                <!-- Notification Bell -->
+                <div class="notification-bell">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span class="notification-dot"></span>
+                </div>
+
+                <!-- Profile Circle -->
+                <a href="profile.html" class="profile-circle" id="header-initials">
+                    U
+                </a>
+            </div>
+        </header>
+
+        <!-- AI BRAIN CONTENT - LIVE DATA WITH EMPTY STATES -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8 custom-scrollbar">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Header with Actions -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-primary">AI Brain</h1>
+                        <p class="text-sm text-secondary mt-1">Configure and monitor your AI assistant's intelligence layer.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="resetLearning" class="px-3 py-1.5 text-sm text-secondary hover:text-primary bg-hover-dark border border-dark rounded-lg hover:bg-hover-dark transition-colors flex items-center gap-1.5">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            Reset to Default
+                        </button>
+                        <button id="applyChanges" class="px-4 py-1.5 text-sm bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] text-white rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                            Save Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Natural Language Understanding -->
+                    <div class="feature-card">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1e293b]">
+                                <i data-lucide="brain" class="h-5 w-5 text-[#818cf8]"></i>
+                            </div>
+                            <h3 class="card-title">Natural Language Understanding</h3>
+                        </div>
+                        <p class="card-description">AI processes buyer messages and understands intent, tone, and urgency.</p>
+                    </div>
+
+                    <!-- Context Memory -->
+                    <div class="feature-card">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1e293b]">
+                                <i data-lucide="zap" class="h-5 w-5 text-[#818cf8]"></i>
+                            </div>
+                            <h3 class="card-title">Context Memory</h3>
+                        </div>
+                        <p class="card-description">Remembers previous conversations and order history for each buyer.</p>
+                    </div>
+
+                    <!-- Safe Mode -->
+                    <div class="feature-card">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1e293b]">
+                                <i data-lucide="shield" class="h-5 w-5 text-[#818cf8]"></i>
+                            </div>
+                            <h3 class="card-title">Safe Mode</h3>
+                        </div>
+                        <p class="card-description">All AI responses are reviewed before sending. Full control stays with you.</p>
+                    </div>
+
+                    <!-- Performance Analytics -->
+                    <div class="feature-card">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1e293b]">
+                                <i data-lucide="bar-chart-3" class="h-5 w-5 text-[#818cf8]"></i>
+                            </div>
+                            <h3 class="card-title">Performance Analytics</h3>
+                        </div>
+                        <p class="card-description">Track how AI improves your response time and buyer satisfaction.</p>
+                    </div>
+                </div>
+
+                <!-- Status Banner -->
+                <div class="bg-gradient-to-r from-[#4f46e5]/10 to-[#8b5cf6]/10 border border-dark rounded-xl p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#4f46e5]/30">
+                                <i data-lucide="brain" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-primary">AI Brain is active</p>
+                                <p class="text-xs text-secondary">Your settings are saved and will be used by the Chrome extension</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                            <span class="text-xs text-secondary">Connected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Settings Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left Column - Buyer Learning & Patterns -->
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <!-- Buyer Behavior Learning -->
+                        <div class="dashboard-card p-5">
+                            <h2 class="card-title mb-4 flex items-center gap-2">
+                                <i data-lucide="users" class="w-4 h-4 text-[#818cf8]"></i>
+                                Buyer Behavior Learning
+                            </h2>
+                            <p class="card-description mb-4">AI analyzes every interaction to understand what buyers like and dislike</p>
+                            
+                            <div class="space-y-4">
+                                <!-- Learning from messages toggle -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-7 h-7 bg-[#1e293b] rounded-md flex items-center justify-center text-[#818cf8]">
+                                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-medium text-primary">Learn from Buyer Messages</p>
+                                            <p class="text-[9px] text-secondary">Analyze message patterns, preferences, and pain points</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-learnFromMessages">
+                                        <span></span>
+                                    </div>
+                                </div>
+
+                                <!-- Response patterns -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-7 h-7 bg-[#1e293b] rounded-md flex items-center justify-center text-[#818cf8]">
+                                            <i data-lucide="repeat" class="w-4 h-4"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-medium text-primary">Identify Response Patterns</p>
+                                            <p class="text-[9px] text-secondary">Learn which responses get the best results</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-responsePatterns">
+                                        <span></span>
+                                    </div>
+                                </div>
+
+                                <!-- Sentiment tracking -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-7 h-7 bg-[#1e293b] rounded-md flex items-center justify-center text-[#818cf8]">
+                                            <i data-lucide="heart" class="w-4 h-4"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-medium text-primary">Sentiment Tracking</p>
+                                            <p class="text-[9px] text-secondary">Track buyer emotions and adjust tone accordingly</p>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-sentimentTracking">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Personalization Settings -->
+                        <div class="dashboard-card p-5">
+                            <h2 class="card-title mb-4 flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-[#818cf8]"></i>
+                                Personalization Engine
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                <!-- Personalization Level -->
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="text-secondary">Personalization Level</span>
+                                        <span class="font-medium text-[#818cf8]" id="personalization-value">85%</span>
+                                    </div>
+                                    <input type="range" min="0" max="100" value="85" class="w-full accent-[#4f46e5]" id="slider-personalization">
+                                    <p class="text-[9px] text-secondary mt-1">Higher = more tailored responses per buyer</p>
+                                </div>
+
+                                <!-- Buyer Memory -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Remember Buyer Preferences</p>
+                                        <p class="text-[9px] text-secondary">Store individual buyer likes/dislikes</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-buyerMemory">
+                                        <span></span>
+                                    </div>
+                                </div>
+
+                                <!-- Context Awareness -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Context Awareness</p>
+                                        <p class="text-[9px] text-secondary">Consider conversation history in responses</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-contextAwareness">
+                                        <span></span>
+                                    </div>
+                                </div>
+
+                                <!-- Adaptive Tone -->
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Adaptive Tone</p>
+                                        <p class="text-[9px] text-secondary">Match buyer's communication style</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-adaptiveTone">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buyer Personas Identified -->
+                            <div class="mt-6">
+                                <h3 class="text-xs font-medium text-primary mb-3">Buyer Personas Identified</h3>
+                                <div class="grid grid-cols-2 gap-2" id="personas-list">
+                                    <div class="insight-badge p-2 bg-[#1e293b] rounded-lg border border-dark">
+                                        <p class="text-xs font-medium text-[#818cf8]">Quality Seeker</p>
+                                        <p class="text-[8px] text-secondary">Prefers detailed specs</p>
+                                    </div>
+                                    <div class="insight-badge p-2 bg-[#1e293b] rounded-lg border border-dark">
+                                        <p class="text-xs font-medium text-[#60a5fa]">Budget Conscious</p>
+                                        <p class="text-[8px] text-secondary">Focus on value</p>
+                                    </div>
+                                    <div class="insight-badge p-2 bg-[#1e293b] rounded-lg border border-dark">
+                                        <p class="text-xs font-medium text-[#c084fc]">Speed Priority</p>
+                                        <p class="text-[8px] text-secondary">Fast turnaround</p>
+                                    </div>
+                                    <div class="insight-badge p-2 bg-[#1e293b] rounded-lg border border-dark">
+                                        <p class="text-xs font-medium text-[#fbbf24]">Collaborative</p>
+                                        <p class="text-[8px] text-secondary">Likes discussions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column - Advanced Intelligence -->
+                    <div class="space-y-6">
+                        
+                        <!-- Learning Mode -->
+                        <div class="dashboard-card p-5">
+                            <h2 class="card-title mb-4 flex items-center gap-2">
+                                <i data-lucide="activity" class="w-4 h-4 text-[#818cf8]"></i>
+                                Learning Mode
+                            </h2>
+                            <div class="space-y-4">
+                                <div class="p-3 bg-[#1e293b] rounded-lg border border-dark">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <span class="text-xs font-medium text-emerald-400">Active Learning: Enabled</span>
+                                    </div>
+                                    <p class="text-[9px] text-secondary">Learning from every conversation in real-time</p>
+                                </div>
+
+                                <!-- Learning Speed -->
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="text-secondary">Learning Speed</span>
+                                        <span class="font-medium text-[#818cf8]" id="learning-speed-value">Balanced</span>
+                                    </div>
+                                    <input type="range" min="0" max="100" value="60" class="w-full accent-[#4f46e5]" id="slider-learningSpeed">
+                                    <div class="flex justify-between text-[8px] text-secondary mt-1">
+                                        <span>Conservative</span>
+                                        <span>Balanced</span>
+                                        <span>Aggressive</span>
+                                    </div>
+                                </div>
+
+                                <!-- Confidence Threshold -->
+                                <div>
+                                    <div class="flex justify-between text-xs mb-2">
+                                        <span class="text-secondary">Confidence Threshold</span>
+                                        <span class="font-medium text-[#818cf8]" id="confidence-value">85%</span>
+                                    </div>
+                                    <input type="range" min="50" max="99" value="85" class="w-full accent-[#4f46e5]" id="slider-confidence">
+                                    <p class="text-[9px] text-secondary mt-1">Minimum confidence for auto-responses</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buyer Feedback - EMPTY STATE FOR NEW USERS -->
+                        <div class="dashboard-card p-5">
+                            <h2 class="card-title mb-4 flex items-center gap-2">
+                                <i data-lucide="thumbs-up" class="w-4 h-4 text-[#818cf8]"></i>
+                                Buyer Feedback
+                            </h2>
+                            
+                            <!-- What Buyers Like About You - EMPTY -->
+                            <div class="mb-4">
+                                <h3 class="text-xs font-medium text-primary mb-2 flex items-center gap-1">
+                                    <span class="w-1 h-1 rounded-full bg-emerald-500"></span>
+                                    What Buyers Like About You
+                                </h3>
+                                <div class="empty-state py-6" id="likes-list">
+                                    <i data-lucide="thumbs-up" class="w-8 h-8 text-muted"></i>
+                                    <p class="text-xs text-muted">No feedback data yet</p>
+                                    <p class="text-[9px] text-muted mt-1">Start using the extension to collect feedback</p>
+                                </div>
+                            </div>
+
+                            <!-- What Buyers Dislike / Complain About - EMPTY -->
+                            <div>
+                                <h3 class="text-xs font-medium text-primary mb-2 flex items-center gap-1">
+                                    <span class="w-1 h-1 rounded-full bg-rose-500"></span>
+                                    What Buyers Dislike / Complain About
+                                </h3>
+                                <div class="empty-state py-6" id="dislikes-list">
+                                    <i data-lucide="thumbs-down" class="w-8 h-8 text-muted"></i>
+                                    <p class="text-xs text-muted">No feedback data yet</p>
+                                    <p class="text-[9px] text-muted mt-1">Start using the extension to collect feedback</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Intelligence Settings -->
+                        <div class="dashboard-card p-5">
+                            <h2 class="card-title mb-4 flex items-center gap-2">
+                                <i data-lucide="settings" class="w-4 h-4 text-[#818cf8]"></i>
+                                Advanced Intelligence
+                            </h2>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Pattern Recognition</p>
+                                        <p class="text-[9px] text-secondary">Identify buyer patterns</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-patternRecognition">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Intent Prediction</p>
+                                        <p class="text-[9px] text-secondary">Predict buyer intentions</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-intentPrediction">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Objection Handling</p>
+                                        <p class="text-[9px] text-secondary">Learn from objections</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-objectionHandling">
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-hover-dark rounded-lg">
+                                    <div>
+                                        <p class="text-xs font-medium text-primary">Grammar Fix</p>
+                                        <p class="text-[9px] text-secondary">Auto-correct grammar in responses</p>
+                                    </div>
+                                    <div class="toggle-switch active" id="toggle-grammarFix">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Learning Activity - EMPTY STATE FOR NEW USERS -->
+                <div class="dashboard-card p-5">
+                    <h2 class="card-title mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-4 h-4 text-[#818cf8]"></i>
+                        Recent Learning Activity
+                    </h2>
+                    <div class="empty-state py-8" id="activity-feed">
+                        <i data-lucide="activity" class="w-12 h-12 text-muted"></i>
+                        <p class="text-sm text-muted">No activity yet</p>
+                        <p class="text-[9px] text-muted mt-1">Start using the extension to see learning activity</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            
+            lucide.createIcons();
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            
+            lucide.createIcons();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+            setTimeout(() => overlay.classList.toggle('opacity-0'), 10);
+        }
+
+        function toggleAiMenu() {
+            const submenu = document.getElementById('aiSubmenu');
+            const chevron = document.getElementById('aiChevron');
+            if (submenu.style.maxHeight === '0px' || submenu.style.maxHeight === '') {
+                submenu.style.maxHeight = '200px';
+                submenu.style.opacity = '1';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.style.maxHeight = '0px';
+                submenu.style.opacity = '0';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Load theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+        });
+    </script>
+
+    <!-- Firebase Script - PER USER SETTINGS -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpPcl60w8ca2_10ZtxjfQ8jEQVkVZRCgo",
+            authDomain: "my-awesome-site-6e399.firebaseapp.com",
+            projectId: "my-awesome-site-6e399",
+            storageBucket: "my-awesome-site-6e399.firebasestorage.app",
+            messagingSenderId: "728415452053",
+            appId: "1:728415452053:web:1649c583f80343bc8c549c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Default settings for new users
+        const defaultSettings = {
+            learnFromMessages: true,
+            responsePatterns: true,
+            sentimentTracking: true,
+            personalizationLevel: 85,
+            buyerMemory: true,
+            contextAwareness: true,
+            adaptiveTone: true,
+            learningSpeed: 60,
+            confidenceThreshold: 85,
+            patternRecognition: true,
+            intentPrediction: true,
+            objectionHandling: true,
+            grammarFix: true,
+            lastUpdated: new Date().toISOString()
+        };
+
+        let currentUser = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentUser = user;
+            updateUserInfo(user);
+            await loadUserSettings(user.uid);
+            
+            // Try to load real data, but if none exists, keep empty states
+            try {
+                await loadBuyerFeedback(user.uid);
+                await loadLearningActivity(user.uid);
+            } catch (e) {
+                console.log("No data yet - showing empty states");
+            }
+        });
+
+        function updateUserInfo(user) {
+            let displayName = user.displayName || user.email.split('@')[0];
+            const firstName = displayName.split(' ')[0];
+            const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            
+            document.getElementById('user-initials').innerText = initials;
+            document.getElementById('header-initials').innerText = initials;
+            
+            document.querySelectorAll('.user-first-name').forEach(el => el.innerText = firstName);
+            document.querySelectorAll('.user-full-name').forEach(el => el.innerText = displayName);
+            document.querySelectorAll('.user-email-display').forEach(el => el.innerText = user.email);
+            
+            document.getElementById('live-status').innerText = 'Live';
+        }
+
+        async function loadUserSettings(userId) {
+            try {
+                const settingsRef = doc(db, "users", userId, "settings", "aiBrain");
+                
+                // Real-time listener for settings
+                onSnapshot(settingsRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const settings = { ...defaultSettings, ...docSnap.data() };
+                        applySettingsToUI(settings);
+                    } else {
+                        // First time user - create default settings
+                        setDoc(settingsRef, defaultSettings);
+                        applySettingsToUI(defaultSettings);
+                    }
+                });
+            } catch (error) {
+                console.error("Error loading settings:", error);
+                applySettingsToUI(defaultSettings);
+            }
+        }
+
+        // Load buyer feedback from Firebase
+        async function loadBuyerFeedback(userId) {
+            try {
+                const feedbackRef = doc(db, "users", userId, "analytics", "feedback");
+                
+                onSnapshot(feedbackRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const feedback = docSnap.data();
+                        updateFeedbackUI(feedback);
+                    }
+                    // If no data, keep empty states
+                });
+            } catch (error) {
+                console.error("Error loading feedback:", error);
+                // Keep empty states
+            }
+        }
+
+        function updateFeedbackUI(feedback) {
+            // Update likes if data exists
+            const likesList = document.getElementById('likes-list');
+            if (likesList && feedback.likes && feedback.likes.length > 0) {
+                likesList.innerHTML = '';
+                likesList.classList.remove('empty-state', 'py-6');
+                feedback.likes.forEach(like => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center gap-2 p-2 bg-[#1e293b] rounded-lg';
+                    item.innerHTML = `
+                        <span class="text-[10px] font-medium text-emerald-400 bg-emerald-500/20 px-1.5 py-0.5 rounded-full">${like.percentage}%</span>
+                        <span class="text-xs text-secondary">${like.text}</span>
+                    `;
+                    likesList.appendChild(item);
+                });
+            }
+            
+            // Update dislikes if data exists
+            const dislikesList = document.getElementById('dislikes-list');
+            if (dislikesList && feedback.dislikes && feedback.dislikes.length > 0) {
+                dislikesList.innerHTML = '';
+                dislikesList.classList.remove('empty-state', 'py-6');
+                feedback.dislikes.forEach(dislike => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center gap-2 p-2 bg-[#1e293b] rounded-lg';
+                    item.innerHTML = `
+                        <span class="text-[10px] font-medium text-rose-400 bg-rose-500/20 px-1.5 py-0.5 rounded-full">${dislike.percentage}%</span>
+                        <span class="text-xs text-secondary">${dislike.text}</span>
+                    `;
+                    dislikesList.appendChild(item);
+                });
+            }
+            
+            lucide.createIcons();
+        }
+
+        // Load learning activity from Firebase
+        async function loadLearningActivity(userId) {
+            try {
+                const activityRef = collection(db, "users", userId, "activity");
+                const q = query(activityRef, orderBy("timestamp", "desc"), limit(5));
+                
+                onSnapshot(q, (snapshot) => {
+                    const activityFeed = document.getElementById('activity-feed');
+                    if (!activityFeed) return;
+                    
+                    if (!snapshot.empty) {
+                        activityFeed.innerHTML = '';
+                        activityFeed.classList.remove('empty-state', 'py-8');
+                        
+                        snapshot.forEach((doc) => {
+                            const activity = doc.data();
+                            const item = document.createElement('div');
+                            item.className = 'flex items-center gap-3 p-2 hover:bg-hover-dark rounded-lg transition-colors';
+                            
+                            const iconMap = {
+                                'pattern': 'message-circle',
+                                'trend': 'trending-up',
+                                'persona': 'users',
+                                'default': 'zap'
+                            };
+                            
+                            const icon = iconMap[activity.type] || 'zap';
+                            
+                            item.innerHTML = `
+                                <div class="w-6 h-6 bg-[#1e293b] rounded-md flex items-center justify-center text-[#818cf8]">
+                                    <i data-lucide="${icon}" class="w-3 h-3"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-xs text-primary">${activity.title}</p>
+                                    <p class="text-[9px] text-secondary">${activity.time || 'Just now'} · from ${activity.count || '0'} conversations</p>
+                                </div>
+                            `;
+                            activityFeed.appendChild(item);
+                        });
+                        
+                        lucide.createIcons();
+                    }
+                    // If no data, keep empty state
+                });
+            } catch (error) {
+                console.error("Error loading activity:", error);
+                // Keep empty state
+            }
+        }
+
+        function applySettingsToUI(settings) {
+            const toggleMappings = {
+                'toggle-learnFromMessages': 'learnFromMessages',
+                'toggle-responsePatterns': 'responsePatterns',
+                'toggle-sentimentTracking': 'sentimentTracking',
+                'toggle-buyerMemory': 'buyerMemory',
+                'toggle-contextAwareness': 'contextAwareness',
+                'toggle-adaptiveTone': 'adaptiveTone',
+                'toggle-patternRecognition': 'patternRecognition',
+                'toggle-intentPrediction': 'intentPrediction',
+                'toggle-objectionHandling': 'objectionHandling',
+                'toggle-grammarFix': 'grammarFix'
+            };
+            
+            for (const [toggleId, settingKey] of Object.entries(toggleMappings)) {
+                const toggle = document.getElementById(toggleId);
+                if (toggle) {
+                    if (settings[settingKey]) {
+                        toggle.classList.add('active');
+                        toggle.classList.remove('inactive');
+                    } else {
+                        toggle.classList.add('inactive');
+                        toggle.classList.remove('active');
+                    }
+                }
+            }
+            
+            document.getElementById('slider-personalization').value = settings.personalizationLevel;
+            document.getElementById('personalization-value').innerText = settings.personalizationLevel + '%';
+            
+            document.getElementById('slider-learningSpeed').value = settings.learningSpeed;
+            const speedValue = settings.learningSpeed < 33 ? 'Conservative' : settings.learningSpeed < 66 ? 'Balanced' : 'Aggressive';
+            document.getElementById('learning-speed-value').innerText = speedValue;
+            
+            document.getElementById('slider-confidence').value = settings.confidenceThreshold;
+            document.getElementById('confidence-value').innerText = settings.confidenceThreshold + '%';
+        }
+
+        async function saveSetting(settingKey, value) {
+            if (!currentUser) return;
+            try {
+                const settingsRef = doc(db, "users", currentUser.uid, "settings", "aiBrain");
+                await setDoc(settingsRef, { [settingKey]: value, lastUpdated: new Date().toISOString() }, { merge: true });
+                return true;
+            } catch (error) {
+                console.error("Error saving setting:", error);
+                return false;
+            }
+        }
+
+        async function saveAllSettings() {
+            if (!currentUser) return;
+            
+            const settings = {
+                learnFromMessages: document.getElementById('toggle-learnFromMessages').classList.contains('active'),
+                responsePatterns: document.getElementById('toggle-responsePatterns').classList.contains('active'),
+                sentimentTracking: document.getElementById('toggle-sentimentTracking').classList.contains('active'),
+                personalizationLevel: parseInt(document.getElementById('slider-personalization').value),
+                buyerMemory: document.getElementById('toggle-buyerMemory').classList.contains('active'),
+                contextAwareness: document.getElementById('toggle-contextAwareness').classList.contains('active'),
+                adaptiveTone: document.getElementById('toggle-adaptiveTone').classList.contains('active'),
+                learningSpeed: parseInt(document.getElementById('slider-learningSpeed').value),
+                confidenceThreshold: parseInt(document.getElementById('slider-confidence').value),
+                patternRecognition: document.getElementById('toggle-patternRecognition').classList.contains('active'),
+                intentPrediction: document.getElementById('toggle-intentPrediction').classList.contains('active'),
+                objectionHandling: document.getElementById('toggle-objectionHandling').classList.contains('active'),
+                grammarFix: document.getElementById('toggle-grammarFix').classList.contains('active'),
+                lastUpdated: new Date().toISOString()
+            };
+            
+            try {
+                const settingsRef = doc(db, "users", currentUser.uid, "settings", "aiBrain");
+                await setDoc(settingsRef, settings);
+                
+                const applyBtn = document.getElementById('applyChanges');
+                const originalHTML = applyBtn.innerHTML;
+                applyBtn.innerHTML = '<i data-lucide="check" class="w-3.5 h-3.5"></i> Saved!';
+                lucide.createIcons();
+                
+                setTimeout(() => {
+                    applyBtn.innerHTML = originalHTML;
+                    lucide.createIcons();
+                }, 2000);
+                
+                return true;
+            } catch (error) {
+                alert('Error saving settings: ' + error.message);
+                return false;
+            }
+        }
+
+        async function resetSettings() {
+            if (!currentUser) return;
+            if (confirm('Reset all AI settings to default?')) {
+                try {
+                    const settingsRef = doc(db, "users", currentUser.uid, "settings", "aiBrain");
+                    await setDoc(settingsRef, defaultSettings);
+                    applySettingsToUI(defaultSettings);
+                    alert('Settings reset to default');
+                } catch (error) {
+                    alert('Error resetting settings: ' + error.message);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                toggle.addEventListener('click', async function() {
+                    if (!currentUser) return;
+                    
+                    this.classList.toggle('active');
+                    this.classList.toggle('inactive');
+                    
+                    const id = this.id;
+                    if (id && id.startsWith('toggle-')) {
+                        const settingKey = id.replace('toggle-', '');
+                        const isActive = this.classList.contains('active');
+                        await saveSetting(settingKey, isActive);
+                    }
+                });
+            });
+
+            document.getElementById('slider-personalization').addEventListener('input', function() {
+                document.getElementById('personalization-value').innerText = this.value + '%';
+            });
+            document.getElementById('slider-personalization').addEventListener('change', async function() {
+                await saveSetting('personalizationLevel', parseInt(this.value));
+            });
+
+            document.getElementById('slider-learningSpeed').addEventListener('input', function() {
+                const value = this.value < 33 ? 'Conservative' : this.value < 66 ? 'Balanced' : 'Aggressive';
+                document.getElementById('learning-speed-value').innerText = value;
+            });
+            document.getElementById('slider-learningSpeed').addEventListener('change', async function() {
+                await saveSetting('learningSpeed', parseInt(this.value));
+            });
+
+            document.getElementById('slider-confidence').addEventListener('input', function() {
+                document.getElementById('confidence-value').innerText = this.value + '%';
+            });
+            document.getElementById('slider-confidence').addEventListener('change', async function() {
+                await saveSetting('confidenceThreshold', parseInt(this.value));
+            });
+
+            document.getElementById('applyChanges').addEventListener('click', saveAllSettings);
+            document.getElementById('resetLearning').addEventListener('click', resetSettings);
+        });
+
+        window.handleSignOut = () => signOut(auth).then(() => window.location.href = 'index.html');
+
+        window.toggleSidebar = function() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+            setTimeout(() => overlay.classList.toggle('opacity-0'), 10);
+        };
+
+        window.toggleAiMenu = function() {
+            const submenu = document.getElementById('aiSubmenu');
+            const chevron = document.getElementById('aiChevron');
+            if (submenu.style.maxHeight === '0px' || submenu.style.maxHeight === '') {
+                submenu.style.maxHeight = '200px';
+                submenu.style.opacity = '1';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.style.maxHeight = '0px';
+                submenu.style.opacity = '0';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        };
+    </script>
+</body>
+</html>

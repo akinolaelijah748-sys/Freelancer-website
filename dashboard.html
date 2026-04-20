@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiverr Inbox AI · Dashboard</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ===== DARK MODE (DEFAULT) ===== */
+        body.dark-mode { 
+            font-family: 'Inter', sans-serif;
+            background-color: #0B1121;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .sidebar {
+            background-color: #0f172a;
+            border-right: 1px solid #1e293b;
+        }
+
+        body.dark-mode .dashboard-card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+        }
+
+        body.dark-mode .dashboard-card:hover {
+            border-color: #4f46e5;
+        }
+
+        body.dark-mode .bg-card-dark {
+            background-color: #0f172a;
+        }
+
+        body.dark-mode .border-dark {
+            border-color: #1e293b;
+        }
+
+        body.dark-mode .text-primary {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .text-secondary {
+            color: #94a3b8;
+        }
+
+        body.dark-mode .text-muted {
+            color: #64748b;
+        }
+
+        body.dark-mode .bg-hover-dark {
+            background-color: #1e293b;
+        }
+        body.dark-mode .bg-hover-dark:hover {
+            background-color: #334155;
+        }
+
+        body.dark-mode .nav-link {
+            color: #94a3b8;
+        }
+        body.dark-mode .nav-link:hover {
+            background-color: #1e293b;
+            color: #f1f5f9;
+        }
+        body.dark-mode .nav-link.active {
+            background-color: #1e293b;
+            color: #818cf8;
+        }
+
+        body.dark-mode .section-header {
+            color: #64748b;
+        }
+
+        body.dark-mode .extension-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid #1e293b;
+        }
+
+        body.dark-mode .notification-bell {
+            background-color: #1e293b;
+            color: #94a3b8;
+        }
+        body.dark-mode .notification-bell:hover {
+            background-color: #334155;
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .notification-dot {
+            border-color: #0f172a;
+        }
+
+        /* Search bar in dark mode */
+        body.dark-mode .search-bar {
+            background-color: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+        body.dark-mode .search-bar:focus {
+            border-color: #4f46e5;
+            background-color: #1e293b;
+        }
+        body.dark-mode .search-bar::placeholder {
+            color: #64748b;
+        }
+        body.dark-mode .search-icon {
+            color: #64748b;
+        }
+
+        /* ===== LIGHT MODE ===== */
+        body.light-mode {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        body.light-mode .sidebar {
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        body.light-mode .dashboard-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        body.light-mode .dashboard-card:hover {
+            border-color: #4f46e5;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+
+        body.light-mode .bg-card-dark {
+            background-color: #ffffff;
+        }
+
+        body.light-mode .border-dark {
+            border-color: #e2e8f0;
+        }
+
+        body.light-mode .text-primary {
+            color: #0f172a;
+        }
+
+        body.light-mode .text-secondary {
+            color: #475569;
+        }
+
+        body.light-mode .text-muted {
+            color: #64748b;
+        }
+
+        body.light-mode .bg-hover-dark {
+            background-color: #f1f5f9;
+        }
+        body.light-mode .bg-hover-dark:hover {
+            background-color: #e2e8f0;
+        }
+
+        body.light-mode .nav-link {
+            color: #64748b;
+        }
+        body.light-mode .nav-link:hover {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        body.light-mode .nav-link.active {
+            background-color: #f1f5f9;
+            color: #4f46e5;
+        }
+
+        body.light-mode .section-header {
+            color: #94a3b8;
+        }
+
+        body.light-mode .extension-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid #e2e8f0;
+        }
+
+        body.light-mode .notification-bell {
+            background-color: #f1f5f9;
+            color: #64748b;
+        }
+        body.light-mode .notification-bell:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        body.light-mode .notification-dot {
+            border-color: #ffffff;
+        }
+
+        /* Search bar in light mode */
+        body.light-mode .search-bar {
+            background-color: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #0f172a;
+        }
+        body.light-mode .search-bar:focus {
+            border-color: #4f46e5;
+            background-color: #ffffff;
+        }
+        body.light-mode .search-bar::placeholder {
+            color: #94a3b8;
+        }
+        body.light-mode .search-icon {
+            color: #94a3b8;
+        }
+
+        body.light-mode .status-in-progress {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: #4f46e5;
+        }
+        body.light-mode .status-delivered {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+        body.light-mode .status-revision {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+        body.light-mode .status-completed {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        body.light-mode .profile-circle {
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+
+        /* Ambient glow - adjusted for light mode */
+        body.light-mode .ambient-glow {
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+        }
+        body.light-mode .ambient-glow-2 {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+        }
+
+        /* Premium noise texture - works in both modes */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        /* Ambient glow */
+        .ambient-glow {
+            position: fixed;
+            top: -20%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        
+        .ambient-glow-2 {
+            position: fixed;
+            bottom: -20%;
+            left: -10%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+            background: #cbd5e1;
+            border-radius: 20px; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Sidebar */
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+
+        /* Card styles */
+        .dashboard-card {
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Status badge styles */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Navigation link styles */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .nav-link i {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        /* Section header */
+        .section-header {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Profile circle */
+        .profile-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        .profile-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Notification bell */
+        .notification-bell {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            border: none;
+            margin-right: 4px;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.05) rotate(15deg);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.5);
+        }
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        body.light-mode .theme-toggle {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        body.light-mode .theme-toggle:hover {
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Extension card */
+        .extension-card {
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+        }
+
+        /* Chrome extension button */
+        .extension-button {
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .extension-button:hover {
+            opacity: 0.9;
+        }
+
+        /* KPI card values */
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .kpi-title {
+            font-size: 0.875rem;
+        }
+        .trend-up {
+            color: #10b981;
+        }
+        .trend-down {
+            color: #ef4444;
+        }
+
+        /* Empty state styling */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            color: #64748b;
+        }
+        .empty-state i {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased dark-mode">
+
+    <!-- Ambient Backgrounds -->
+    <div class="ambient-glow"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobileOverlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-40 hidden lg:hidden transition-opacity duration-500 opacity-0" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar fixed lg:static inset-y-0 left-0 z-50 w-64 transform -translate-x-full lg:translate-x-0 flex flex-col shadow-2xl transition-all duration-500">
+        
+        <!-- Sidebar Header -->
+        <div class="h-20 flex items-center gap-3 px-5 border-b border-dark flex-shrink-0">
+            <div class="w-9 h-9 bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] rounded-lg flex items-center justify-center text-white shadow-lg">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-primary text-base tracking-tight">
+                    Inbox AI CRM
+                </h1>
+                <p class="text-[10px] font-medium text-muted tracking-wider mt-0.5">Fiverr Seller Suite</p>
+            </div>
+            <button onclick="toggleSidebar()" class="lg:hidden ml-auto text-muted hover:text-primary p-1 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex-1 overflow-y-auto py-6 px-3 custom-scrollbar">
+            
+            <div class="section-header text-muted">Menu</div>
+
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="nav-link active">
+                <i data-lucide="layout-dashboard"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <!-- AI Intelligent -->
+            <div class="mt-1">
+                <button onclick="toggleAiMenu()" class="w-full nav-link justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="brain"></i>
+                        <span>AI Intelligent</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="aiChevron"></i>
+                </button>
+
+                <div id="aiSubmenu" class="ml-4 pl-4 border-l border-dark mt-1 space-y-1 overflow-hidden transition-all duration-200" style="max-height: 0; opacity: 0;">
+                    <a href="brain.html" class="nav-link !pl-3 text-sm">
+                        <span class="w-1 h-1 rounded-full bg-[#4f46e5]"></span>
+                        <span>AI Brain</span>
+                    </a>
+                    <a href="workflow.html" class="nav-link !pl-3 text-sm">
+                        <span class="w-1 h-1 rounded-full bg-muted"></span>
+                        <span>Workflow</span>
+                    </a>
+                    <a href="instructions.html" class="nav-link !pl-3 text-sm">
+                        <span class="w-1 h-1 rounded-full bg-muted"></span>
+                        <span>Instructions</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Order Management -->
+            <a href="order-management.html" class="nav-link mt-1">
+                <i data-lucide="shopping-bag"></i>
+                <span>Order Management</span>
+            </a>
+
+            <!-- Conversation Inbox -->
+            <a href="inbox.html" class="nav-link">
+                <i data-lucide="message-square"></i>
+                <span>Conversation Inbox</span>
+            </a>
+
+            <!-- Template Engine -->
+            <a href="templates.html" class="nav-link">
+                <i data-lucide="layout-template"></i>
+                <span>Template Engine</span>
+            </a>
+
+            <!-- Personalization -->
+            <a href="personalization.html" class="nav-link">
+                <i data-lucide="sparkles"></i>
+                <span>Personalization</span>
+            </a>
+
+            <!-- Reminder System -->
+            <a href="reminders.html" class="nav-link">
+                <i data-lucide="bell-ring"></i>
+                <span>Reminder System</span>
+            </a>
+
+            <!-- API Management -->
+            <a href="api-management.html" class="nav-link">
+                <i data-lucide="webhook"></i>
+                <span>API Management</span>
+            </a>
+        </div>
+
+        <!-- Chrome Extension Card -->
+        <div class="px-3 py-4 border-t border-dark">
+            <div class="extension-card">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6] flex items-center justify-center text-white shrink-0">
+                        <i data-lucide="chrome" class="w-4 h-4"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-primary">Chrome Extension</p>
+                        <p class="text-xs text-secondary mt-1">Get AI replies directly in your Fiverr inbox</p>
+                        <button class="mt-3 text-xs font-medium text-[#818cf8] hover:text-[#a78bfa] transition-colors">
+                            Download Extension →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Profile Footer -->
+        <div class="px-3 py-4 border-t border-dark">
+            <div class="flex items-center gap-3">
+                <div class="profile-circle" id="user-initials">
+                    U
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-primary truncate user-full-name">Loading...</p>
+                    <p class="text-[10px] text-muted truncate user-email-display">Loading...</p>
+                </div>
+                <button onclick="handleSignOut()" class="text-muted hover:text-[#f87171] transition-colors p-1.5 hover:bg-hover-dark rounded-lg" title="Sign out">
+                    <i data-lucide="log-out" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-card-dark">
+        
+        <!-- Top Header -->
+        <header class="h-16 bg-card-dark/80 backdrop-blur-xl border-b border-dark flex items-center justify-between px-5 lg:px-6 sticky top-0 z-30">
+            <div class="flex items-center gap-3">
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 text-muted hover:text-primary hover:bg-hover-dark rounded-lg transition-colors">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+                <h2 class="text-base font-semibold text-primary">Dashboard</h2>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Search bar -->
+                <div class="hidden md:flex items-center relative">
+                    <i data-lucide="search" class="absolute left-3 w-4 h-4 search-icon"></i>
+                    <input type="text" placeholder="Search..." class="search-bar pl-9 pr-4 py-2 rounded-lg text-sm w-64 focus:outline-none focus:ring-1 focus:ring-[#4f46e5] transition-all">
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                    <i data-lucide="sun" class="w-4 h-4" id="themeIcon"></i>
+                </div>
+
+                <!-- Notification Bell -->
+                <div class="notification-bell">
+                    <i data-lucide="bell" class="w-4 h-4"></i>
+                    <span class="notification-dot" style="border-color: inherit;"></span>
+                </div>
+
+                <!-- Profile Circle -->
+                <a href="profile.html" class="profile-circle" id="header-initials">
+                    U
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content Area - LIVE DATA -->
+        <main class="flex-1 overflow-y-auto p-6 lg:p-8 custom-scrollbar">
+            <div class="max-w-7xl mx-auto space-y-6">
+                
+                <!-- Header -->
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-primary">Dashboard</h1>
+                    <p class="text-sm text-secondary mt-1">
+                        Welcome back, <span id="display-name" class="text-[#818cf8] font-medium">User</span>. Here's your Fiverr business overview.
+                    </p>
+                </div>
+
+                <!-- Chrome Extension Banner -->
+                <div class="relative overflow-hidden rounded-xl border border-dark bg-gradient-to-r from-[#4f46e5]/10 to-[#8b5cf6]/10 p-5">
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#4f46e5] to-[#8b5cf6]">
+                                <i data-lucide="chrome" class="h-5 w-5 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-primary">Get the Chrome Extension</p>
+                                <p class="text-sm text-secondary">
+                                    AI-powered replies, summaries, and grammar fixes directly in your Fiverr inbox.
+                                </p>
+                            </div>
+                        </div>
+                        <button class="shrink-0 rounded-lg bg-gradient-to-r from-[#4f46e5] to-[#8b5cf6] px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
+                            Install Extension
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KPI Cards - LIVE DATA -->
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <!-- Total Orders -->
+                    <div class="dashboard-card p-5">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-secondary">Total Orders</p>
+                            <i data-lucide="package" class="h-4 w-4 text-muted"></i>
+                        </div>
+                        <div class="mt-2 flex items-end gap-2">
+                            <p class="text-2xl font-bold text-primary" id="stat-total-orders">0</p>
+                            <span class="flex items-center text-xs font-medium text-[#34d399]" id="stat-orders-change">
+                                <i data-lucide="arrow-up-right" class="h-3 w-3"></i>
+                                0%
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Active Conversations -->
+                    <div class="dashboard-card p-5">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-secondary">Active Conversations</p>
+                            <i data-lucide="message-square" class="h-4 w-4 text-muted"></i>
+                        </div>
+                        <div class="mt-2 flex items-end gap-2">
+                            <p class="text-2xl font-bold text-primary" id="stat-active-conversations">0</p>
+                            <span class="flex items-center text-xs font-medium text-[#34d399]" id="stat-conversations-change">
+                                <i data-lucide="arrow-up-right" class="h-3 w-3"></i>
+                                0%
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Response Rate -->
+                    <div class="dashboard-card p-5">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-secondary">Response Rate</p>
+                            <i data-lucide="trending-up" class="h-4 w-4 text-muted"></i>
+                        </div>
+                        <div class="mt-2 flex items-end gap-2">
+                            <p class="text-2xl font-bold text-primary" id="stat-response-rate">0%</p>
+                            <span class="flex items-center text-xs font-medium text-[#34d399]" id="stat-response-change">
+                                <i data-lucide="arrow-up-right" class="h-3 w-3"></i>
+                                0%
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Pending Reminders -->
+                    <div class="dashboard-card p-5">
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm font-medium text-secondary">Pending Reminders</p>
+                            <i data-lucide="bell" class="h-4 w-4 text-muted"></i>
+                        </div>
+                        <div class="mt-2 flex items-end gap-2">
+                            <p class="text-2xl font-bold text-primary" id="stat-pending-reminders">0</p>
+                            <span class="flex items-center text-xs font-medium text-[#f87171]" id="stat-reminders-change">
+                                <i data-lucide="arrow-down-right" class="h-3 w-3"></i>
+                                0%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle Section - Recent Conversations & Order Activity (LIVE DATA) -->
+                <div class="grid gap-4 lg:grid-cols-2">
+                    
+                    <!-- Recent Conversations -->
+                    <div class="dashboard-card overflow-hidden">
+                        <div class="p-5 pb-3 border-b border-dark">
+                            <h3 class="text-base font-semibold text-primary">Recent Conversations</h3>
+                        </div>
+                        <div class="p-2" id="recent-conversations-list">
+                            <!-- Empty state - will be populated by JavaScript -->
+                            <div class="empty-state">
+                                <i data-lucide="message-circle" class="w-12 h-12"></i>
+                                <p class="text-sm text-secondary">No conversations yet</p>
+                                <p class="text-xs text-muted mt-1">Start using the extension to see activity</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Activity -->
+                    <div class="dashboard-card overflow-hidden">
+                        <div class="p-5 pb-3 border-b border-dark">
+                            <h3 class="text-base font-semibold text-primary">Order Activity</h3>
+                        </div>
+                        <div class="p-2" id="order-activity-list">
+                            <!-- Empty state - will be populated by JavaScript -->
+                            <div class="empty-state">
+                                <i data-lucide="shopping-bag" class="w-12 h-12"></i>
+                                <p class="text-sm text-secondary">No orders yet</p>
+                                <p class="text-xs text-muted mt-1">Orders will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section - Reminders & AI Usage (LIVE DATA) -->
+                <div class="grid gap-4 lg:grid-cols-2">
+                    
+                    <!-- Upcoming Reminders -->
+                    <div class="dashboard-card overflow-hidden">
+                        <div class="p-5 pb-3 border-b border-dark">
+                            <h3 class="text-base font-semibold text-primary">Upcoming Reminders</h3>
+                        </div>
+                        <div class="p-2" id="reminders-list">
+                            <!-- Empty state with call to action -->
+                            <div class="empty-state">
+                                <i data-lucide="clock" class="w-12 h-12"></i>
+                                <p class="text-sm text-secondary">Setup your Upcoming reminders Now</p>
+                                <p class="text-xs text-muted mt-1">Create reminders to never miss a task</p>
+                                <button class="mt-3 text-xs font-medium text-[#818cf8] hover:text-[#a78bfa] transition-colors">
+                                    + Add Reminder
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Usage Stats - UPDATED to show 4 tools -->
+                    <div class="dashboard-card overflow-hidden">
+                        <div class="p-5 pb-3 border-b border-dark">
+                            <h3 class="text-base font-semibold text-primary">AI Usage This Week</h3>
+                        </div>
+                        <div class="p-5">
+                            <div class="h-[200px] relative">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                            <div class="flex items-center justify-center gap-4 mt-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#4f46e5]"></span>
+                                    <span class="text-xs text-secondary">AI Agent</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#10b981]"></span>
+                                    <span class="text-xs text-secondary">Grammar Fix</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#8b5cf6]"></span>
+                                    <span class="text-xs text-secondary">Summarise</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-[#f59e0b]"></span>
+                                    <span class="text-xs text-secondary">Translate</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom spacing -->
+                <div class="h-2"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            
+            lucide.createIcons();
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // Load saved theme preference
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                themeIcon.setAttribute('data-lucide', 'moon');
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                themeIcon.setAttribute('data-lucide', 'sun');
+            }
+            
+            lucide.createIcons();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            sidebar.classList.toggle('-translate-x-full');
+            sidebar.classList.toggle('translate-x-0');
+            overlay.classList.toggle('hidden');
+            setTimeout(() => overlay.classList.toggle('opacity-0'), 10);
+        }
+
+        function toggleAiMenu() {
+            const submenu = document.getElementById('aiSubmenu');
+            const chevron = document.getElementById('aiChevron');
+            if (submenu.style.maxHeight === '0px' || submenu.style.maxHeight === '') {
+                submenu.style.maxHeight = '200px';
+                submenu.style.opacity = '1';
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                submenu.style.maxHeight = '0px';
+                submenu.style.opacity = '0';
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Update dashboard with live data
+        function updateDashboardWithData(data) {
+            // Update KPI cards
+            document.getElementById('stat-total-orders').innerText = data.totalOrders || '0';
+            document.getElementById('stat-orders-change').innerHTML = `<i data-lucide="arrow-up-right" class="h-3 w-3"></i> ${data.ordersChange || '0%'}`;
+            
+            document.getElementById('stat-active-conversations').innerText = data.activeConversations || '0';
+            document.getElementById('stat-conversations-change').innerHTML = `<i data-lucide="arrow-up-right" class="h-3 w-3"></i> ${data.conversationsChange || '0%'}`;
+            
+            document.getElementById('stat-response-rate').innerText = data.responseRate || '0%';
+            document.getElementById('stat-response-change').innerHTML = `<i data-lucide="arrow-up-right" class="h-3 w-3"></i> ${data.responseChange || '0%'}`;
+            
+            document.getElementById('stat-pending-reminders').innerText = data.pendingReminders || '0';
+            document.getElementById('stat-reminders-change').innerHTML = `<i data-lucide="arrow-down-right" class="h-3 w-3"></i> ${data.remindersChange || '0%'}`;
+
+            // Update Recent Conversations
+            const conversationsList = document.getElementById('recent-conversations-list');
+            if (data.recentConversations && data.recentConversations.length > 0) {
+                conversationsList.innerHTML = '';
+                data.recentConversations.forEach(conv => {
+                    const convEl = document.createElement('div');
+                    convEl.className = 'flex items-center gap-3 rounded-lg p-2.5 hover:bg-hover-dark transition-colors';
+                    convEl.innerHTML = `
+                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-hover-dark">
+                            <i data-lucide="user" class="h-4 w-4 text-muted"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2">
+                                <p class="text-sm font-medium text-primary truncate">${conv.buyer}</p>
+                                ${conv.unread ? '<span class="h-2 w-2 rounded-full bg-[#4f46e5]"></span>' : ''}
+                            </div>
+                            <p class="text-xs text-secondary truncate">${conv.message}</p>
+                        </div>
+                        <span class="text-xs text-muted whitespace-nowrap">${conv.time}</span>
+                    `;
+                    conversationsList.appendChild(convEl);
+                });
+            }
+
+            // Update Order Activity
+            const ordersList = document.getElementById('order-activity-list');
+            if (data.orderActivity && data.orderActivity.length > 0) {
+                ordersList.innerHTML = '';
+                data.orderActivity.forEach(order => {
+                    const orderEl = document.createElement('div');
+                    orderEl.className = 'flex items-center justify-between rounded-lg p-2.5 hover:bg-hover-dark transition-colors';
+                    orderEl.innerHTML = `
+                        <div>
+                            <p class="text-sm font-medium text-primary">${order.service}</p>
+                            <p class="text-xs text-secondary">${order.id} · ${order.buyer}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="status-badge status-${order.statusClass}">${order.status}</span>
+                            <span class="text-sm font-semibold text-primary">${order.amount}</span>
+                        </div>
+                    `;
+                    ordersList.appendChild(orderEl);
+                });
+            }
+
+            // Update Reminders
+            const remindersList = document.getElementById('reminders-list');
+            if (data.reminders && data.reminders.length > 0) {
+                remindersList.innerHTML = '';
+                data.reminders.forEach(reminder => {
+                    const remEl = document.createElement('div');
+                    remEl.className = 'flex items-start gap-3 rounded-lg p-2.5 hover:bg-hover-dark transition-colors';
+                    remEl.innerHTML = `
+                        <i data-lucide="clock" class="mt-0.5 h-4 w-4 text-muted shrink-0"></i>
+                        <div class="flex-1">
+                            <p class="text-sm text-primary">${reminder.text}</p>
+                            <p class="text-xs text-secondary">${reminder.due}</p>
+                        </div>
+                    `;
+                    remindersList.appendChild(remEl);
+                });
+            }
+
+            // Update Chart
+            if (data.chartData) {
+                updateChart(data.chartData);
+            }
+
+            lucide.createIcons();
+        }
+
+        // Initialize chart with 4 datasets
+        let chart;
+        function initializeChart() {
+            const canvas = document.getElementById('performanceChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'AI Agent',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: '#4f46e5',
+                            borderRadius: 4,
+                            barPercentage: 0.6
+                        },
+                        {
+                            label: 'Grammar Fix',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: '#10b981',
+                            borderRadius: 4,
+                            barPercentage: 0.6
+                        },
+                        {
+                            label: 'Summarise',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: '#8b5cf6',
+                            borderRadius: 4,
+                            barPercentage: 0.6
+                        },
+                        {
+                            label: 'Translate',
+                            data: [0, 0, 0, 0, 0, 0, 0],
+                            backgroundColor: '#f59e0b',
+                            borderRadius: 4,
+                            barPercentage: 0.6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(chartData) {
+            if (chart) {
+                chart.data.datasets[0].data = chartData.aiAgent || [0,0,0,0,0,0,0];
+                chart.data.datasets[1].data = chartData.grammarFix || [0,0,0,0,0,0,0];
+                chart.data.datasets[2].data = chartData.summarise || [0,0,0,0,0,0,0];
+                chart.data.datasets[3].data = chartData.translate || [0,0,0,0,0,0,0];
+                chart.update();
+            }
+        }
+
+        // Load default empty state on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            initializeChart();
+            
+            // Initialize with empty data
+            updateDashboardWithData({
+                totalOrders: '0',
+                ordersChange: '0%',
+                activeConversations: '0',
+                conversationsChange: '0%',
+                responseRate: '0%',
+                responseChange: '0%',
+                pendingReminders: '0',
+                remindersChange: '0%',
+                recentConversations: [],
+                orderActivity: [],
+                reminders: [],
+                chartData: {
+                    aiAgent: [0,0,0,0,0,0,0],
+                    grammarFix: [0,0,0,0,0,0,0],
+                    summarise: [0,0,0,0,0,0,0],
+                    translate: [0,0,0,0,0,0,0]
+                }
+            });
+        });
+    </script>
+
+    <!-- Firebase Live Engine - UPDATED to read from correct location -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpPcl60w8ca2_10ZtxjfQ8jEQVkVZRCgo",
+            authDomain: "my-awesome-site-6e399.firebaseapp.com",
+            projectId: "my-awesome-site-6e399",
+            storageBucket: "my-awesome-site-6e399.firebasestorage.app",
+            messagingSenderId: "728415053452",
+            appId: "1:728415053452:web:1649c583f80343bc8c549c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+            } else {
+                let displayName = user.displayName;
+                
+                if (!displayName) {
+                    try {
+                        const userDoc = await getDoc(doc(db, "users", user.uid));
+                        if (userDoc.exists()) displayName = userDoc.data().fullName;
+                    } catch (e) {}
+                }
+                
+                if (!displayName) displayName = user.email.split('@')[0];
+
+                const firstName = displayName.split(' ')[0];
+                const initials = displayName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                
+                document.getElementById('display-name').innerText = firstName;
+                document.getElementById('user-initials').innerText = initials;
+                document.getElementById('header-initials').innerText = initials;
+                
+                document.querySelectorAll('.user-first-name').forEach(el => el.innerText = firstName);
+                document.querySelectorAll('.user-full-name').forEach(el => el.innerText = displayName);
+                document.querySelectorAll('.user-email-display').forEach(el => el.innerText = user.email);
+
+                // ===== CONNECT TO EXTENSION =====
+                if (window.connectToExtension) {
+                    window.connectToExtension(user);
+                }
+
+                // Listen for real-time user data (includes usage)
+                const userRef = doc(db, "users", user.uid);
+                
+                onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const userData = docSnap.data();
+                        const usage = userData.usage || {
+                            aiAgent: [0,0,0,0,0,0,0],
+                            grammarFix: [0,0,0,0,0,0,0],
+                            summarise: [0,0,0,0,0,0,0],
+                            translate: [0,0,0,0,0,0,0]
+                        };
+                        
+                        // Prepare dashboard data
+                        const dashboardData = {
+                            totalOrders: userData.totalOrders || '0',
+                            ordersChange: userData.ordersChange || '0%',
+                            activeConversations: userData.activeConversations || '0',
+                            conversationsChange: userData.conversationsChange || '0%',
+                            responseRate: userData.responseRate || '0%',
+                            responseChange: userData.responseChange || '0%',
+                            pendingReminders: userData.pendingReminders || '0',
+                            remindersChange: userData.remindersChange || '0%',
+                            recentConversations: userData.recentConversations || [],
+                            orderActivity: userData.orderActivity || [],
+                            reminders: userData.reminders || [],
+                            chartData: {
+                                aiAgent: usage.aiAgent,
+                                grammarFix: usage.grammarFix,
+                                summarise: usage.summarise,
+                                translate: usage.translate
+                            }
+                        };
+                        
+                        window.updateDashboardWithData(dashboardData);
+                        console.log('📊 Dashboard updated with real-time usage:', usage);
+                    } else {
+                        console.log("No user data found");
+                    }
+                });
+            }
+        });
+
+        window.handleSignOut = () => signOut(auth).then(() => window.location.href = 'index.html');
+    </script>
+
+    <!-- Extension Connection -->
+    <script src="extension-connect.js"></script>
+</body>
+</html>

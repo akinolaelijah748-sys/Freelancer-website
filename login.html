@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiverr Inbox AI | Welcome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Cache Busting -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <style>
+        :root {
+            --primary: #1DBF73;
+            --primary-hover: #1aa865;
+            --primary-glow: rgba(29, 191, 115, 0.3);
+            --bg-dark: #080808;
+            --surface: #121212;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; padding: 20px; }
+
+        .ambient-bg { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 15% 50%, #0d0d0d 0%, #000 100%); }
+        .glow-orb { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(29,191,115,0.15) 0%, transparent 70%); border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: breathe 10s infinite alternate ease-in-out; }
+        .orb-1 { top: -20%; right: -10%; }
+        .orb-2 { bottom: -20%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(29,191,115,0.08) 0%, transparent 70%); animation-delay: -5s; }
+        .noise-overlay { position: fixed; inset: 0; z-index: 0; opacity: 0.03; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+        @keyframes breathe { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.1) translate(-20px, 20px); } }
+
+        .container { width: 100%; max-width: 1100px; position: relative; z-index: 10; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding: 0 10px; animation: slideDown 0.8s var(--ease-out); }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: grid; place-items: center; color: white; font-size: 20px; box-shadow: 0 8px 20px -6px var(--primary-glow); }
+        .brand-text { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+        .nav-link:hover { color: white; }
+
+        .grid-layout { display: grid; grid-template-columns: 1fr 440px; gap: 60px; align-items: center; }
+        .hero-content { padding-right: 20px; animation: fadeIn 1s var(--ease-out) 0.2s backwards; }
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 100px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); color: var(--primary); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 24px; }
+        .headline { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+        .headline span { color: var(--primary); }
+        .subheadline { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 480px; }
+        .stats-group { display: flex; gap: 30px; }
+        .stat-item h4 { font-size: 24px; font-weight: 800; color: white; }
+        .stat-item p { font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 4px; }
+
+        .auth-card { background: var(--glass); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); animation: slideUp 0.8s var(--ease-out) 0.3s backwards; position: relative; }
+        .auth-header { text-align: center; margin-bottom: 24px; }
+        .auth-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .auth-subtitle { font-size: 13px; color: var(--text-secondary); }
+
+        .tabs { display: flex; background: rgba(0,0,0,0.2); padding: 4px; border-radius: 12px; margin-bottom: 24px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: var(--text-secondary); font-size: 13px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .tab-btn.active { background: rgba(255,255,255,0.08); color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+        .input-group { margin-bottom: 16px; }
+        .label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; margin-left: 2px; }
+        .input-wrapper { position: relative; }
+        .input-field { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 14px 16px 14px 44px; border-radius: 12px; color: white; font-size: 14px; transition: all 0.2s ease; }
+        .input-field:focus { outline: none; border-color: var(--primary); background: rgba(255,255,255,0.05); box-shadow: 0 0 0 4px rgba(29, 191, 115, 0.1); }
+        .input-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #555; font-size: 16px; transition: color 0.2s; }
+        .input-field:focus ~ .input-icon { color: var(--primary); }
+
+        .btn { width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: white; margin-top: 8px; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(29, 191, 115, 0.2); }
+        .btn-google { background: white; color: #111; margin-top: 20px; }
+        .btn-google:hover { background: #f0f0f0; }
+
+        .divider { display: flex; align-items: center; margin: 24px 0; color: #333; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+        .divider span { padding: 0 12px; color: var(--text-secondary); }
+        .form-footer { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-secondary); }
+        .link { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
+        .link:hover { text-decoration: underline; }
+        .forgot-pass { text-align: right; margin-top: 8px; }
+        .forgot-pass a { color: var(--text-secondary); font-size: 12px; text-decoration: none; }
+        .forgot-pass a:hover { color: var(--primary); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 100; display: none; place-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-backdrop.open { display: grid; opacity: 1; }
+        .modal { background: #111; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 400px; padding: 32px; border-radius: 20px; text-align: center; transform: scale(0.95); transition: transform 0.3s var(--ease-out); position: relative; }
+        .modal-backdrop.open .modal { transform: scale(1); }
+        .modal-icon { width: 56px; height: 56px; background: rgba(29, 191, 115, 0.1); color: var(--primary); border-radius: 50%; display: grid; place-items: center; font-size: 24px; margin: 0 auto 16px; }
+        .close-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #555; cursor: pointer; font-size: 20px; }
+        .close-btn:hover { color: white; }
+        .hidden { display: none; }
+        .toast { position: fixed; bottom: 20px; right: 20px; background: #1e293b; border-left: 4px solid #1DBF73; padding: 12px 20px; border-radius: 8px; color: white; z-index: 1000; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        
+        @media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; gap: 40px; } .hero-content { text-align: center; padding-right: 0; } .subheadline { margin: 0 auto 32px; } .stats-group { justify-content: center; } .navbar { margin-bottom: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+    <div class="noise-overlay"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-robot"></i></div>
+                <span class="brand-text">FiverrInboxAI</span>
+            </div>
+            <a href="index.html" class="nav-link">Back to Home <i class="fas fa-arrow-right" style="font-size: 12px;"></i></a>
+        </nav>
+
+        <div class="grid-layout">
+            <div class="hero-content">
+                <div class="badge"><i class="fas fa-sparkles"></i> &nbsp; AI-Powered Growth</div>
+                <h1 class="headline">Your Fiverr Business, <br><span>On Autopilot.</span></h1>
+                <p class="subheadline">Stop manually replying to messages. Join elite sellers who automate chats and boost response rates.</p>
+                <div class="stats-group">
+                    <div class="stat-item"><h4>&lt; 1 min</h4><p>Response Time</p></div>
+                    <div class="stat-item"><h4>24/7</h4><p>Monitoring</p></div>
+                    <div class="stat-item"><h4>100%</h4><p>Secure</p></div>
+                </div>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2 class="auth-title" id="cardTitle">Welcome Back</h2>
+                    <p class="auth-subtitle" id="cardSub">Enter your details to access your dashboard.</p>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="setMode('login')">Login</button>
+                    <button class="tab-btn" onclick="setMode('signup')">Sign Up</button>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label class="label">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="loginEmail" class="input-field" placeholder="you@example.com" required>
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="loginPass" class="input-field" placeholder="••••••••" required>
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                        <div class="forgot-pass"><a href="#" onclick="openModal()">Forgot password?</a></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+                </form>
+
+                <form id="signupForm" class="hidden">
+                    <div class="input-group">
+                        <label class="label">Full Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="signupName" class="input-field" placeholder="John Doe" required>
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="signupEmail" class="input-field" placeholder="you@example.com" required>
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="label">Create Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="signupPass" class="input-field" placeholder="Min. 8 characters" required>
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="signupBtn">Get Started Free</button>
+                </form>
+
+                <div class="divider"><span>OR CONTINUE WITH</span></div>
+
+                <button class="btn btn-google" onclick="handleGoogleLogin()">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18" alt="G">
+                    &nbsp; Google Account
+                </button>
+
+                <div class="form-footer">
+                    <span id="footerText">Don't have an account?</span>
+                    <a class="link" href="#" id="footerLink" onclick="toggleMode()">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-backdrop" id="forgotModal">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-icon"><i class="fas fa-key"></i></div>
+            <h3 style="color: white; margin-bottom: 8px;">Reset Password</h3>
+            <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 24px;">Enter your email to get a reset link.</p>
+            <div class="input-wrapper" style="text-align: left; margin-bottom: 20px;">
+                <input type="email" id="resetEmail" class="input-field" placeholder="Enter your email">
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+            <button class="btn btn-primary" onclick="handlePasswordReset()">Send Reset Link</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpPcl60w8ca2_10ZtxjfQ8jEQVkVZRCgo",
+            authDomain: "my-awesome-site-6e399.firebaseapp.com",
+            projectId: "my-awesome-site-6e399",
+            storageBucket: "my-awesome-site-6e399.firebasestorage.app",
+            messagingSenderId: "728415053452",
+            appId: "1:728415053452:web:1649c583f80343bc8c549c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // ===== NEW: Save user data to Chrome storage for extension =====
+        async function saveToExtension(userId, userEmail) {
+            try {
+                if (window.chrome?.storage?.local) {
+                    await chrome.storage.local.set({
+                        userId: userId,
+                        userEmail: userEmail,
+                        connected: true,
+                        connectedAt: new Date().toISOString()
+                    });
+                    console.log("✅ User data saved to extension storage");
+                    return true;
+                } else {
+                    console.log("⚠️ Chrome storage not available - saving to localStorage");
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('userEmail', userEmail);
+                    return true;
+                }
+            } catch (e) {
+                console.error("❌ Error saving to extension:", e);
+                return false;
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.borderLeftColor = isError ? '#ef4444' : '#1DBF73';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Google Login
+        window.handleGoogleLogin = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const now = new Date().toISOString();
+                
+                await setDoc(doc(db, "users", user.uid), {
+                    fullName: user.displayName || "Google User",
+                    email: user.email,
+                    photoURL: user.photoURL || null,
+                    createdAt: now,
+                    lastLogin: now,
+                    usage: {
+                        aiAgent: [0,0,0,0,0,0,0],
+                        grammarFix: [0,0,0,0,0,0,0],
+                        summarise: [0,0,0,0,0,0,0],
+                        translate: [0,0,0,0,0,0,0]
+                    }
+                }, { merge: true });
+                
+                // ✅ Save to extension storage
+                await saveToExtension(user.uid, user.email);
+                
+                showToast("✅ Google login successful!");
+                setTimeout(() => { location.href = 'dashboard.html'; }, 500);
+            } catch (err) { 
+                console.error(err);
+                showToast("❌ Google login failed: " + err.message, true);
+            }
+        };
+
+        // Email/Password Login
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            const loginBtn = document.getElementById('loginBtn');
+            
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing in...';
+            loginBtn.disabled = true;
+            
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, pass);
+                const user = userCredential.user;
+                
+                // ✅ Save to extension storage
+                await saveToExtension(user.uid, user.email);
+                
+                showToast("✅ Login successful!");
+                setTimeout(() => { location.href = 'dashboard.html'; }, 500);
+            } catch (err) { 
+                console.error(err);
+                showToast("❌ Login failed: " + err.message, true);
+                loginBtn.innerHTML = 'Sign In';
+                loginBtn.disabled = false;
+            }
+        };
+
+        // Signup
+        document.getElementById('signupForm').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const pass = document.getElementById('signupPass').value;
+            const signupBtn = document.getElementById('signupBtn');
+            
+            signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+            signupBtn.disabled = true;
+            
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                const user = userCredential.user;
+                const now = new Date().toISOString();
+                
+                await updateProfile(user, { displayName: fullName });
+                
+                await setDoc(doc(db, "users", user.uid), {
+                    fullName: fullName,
+                    email: email,
+                    createdAt: now,
+                    lastLogin: now,
+                    usage: {
+                        aiAgent: [0,0,0,0,0,0,0],
+                        grammarFix: [0,0,0,0,0,0,0],
+                        summarise: [0,0,0,0,0,0,0],
+                        translate: [0,0,0,0,0,0,0]
+                    }
+                });
+                
+                // ✅ Save to extension storage
+                await saveToExtension(user.uid, user.email);
+                
+                console.log("✅ User created with name:", fullName);
+                showToast("✅ Account created successfully!");
+                setTimeout(() => { location.href = 'dashboard.html'; }, 500);
+                
+            } catch (err) { 
+                console.error(err);
+                showToast("❌ Signup failed: " + err.message, true);
+                signupBtn.innerHTML = 'Get Started Free';
+                signupBtn.disabled = false;
+            }
+        };
+
+        // Password Reset
+        window.handlePasswordReset = async () => {
+            const email = document.getElementById('resetEmail').value;
+            const resetBtn = document.querySelector('#forgotModal .btn-primary');
+            
+            if (!email) {
+                showToast("Please enter your email address", true);
+                return;
+            }
+            
+            resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            resetBtn.disabled = true;
+            
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast("✅ Reset link sent to your email!");
+                closeModal();
+                document.getElementById('resetEmail').value = '';
+            } catch (err) { 
+                showToast("❌ Password reset failed: " + err.message, true);
+            } finally {
+                resetBtn.innerHTML = 'Send Reset Link';
+                resetBtn.disabled = false;
+            }
+        };
+    </script>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+
+        window.setMode = (mode) => {
+            tabBtns.forEach(btn => btn.classList.remove('active'));
+            if (mode === 'login') {
+                tabBtns[0].classList.add('active');
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                document.getElementById('cardTitle').innerText = 'Welcome Back';
+                document.getElementById('cardSub').innerText = 'Enter your details to access your dashboard.';
+                document.getElementById('footerText').innerText = "Don't have an account?";
+                document.getElementById('footerLink').innerText = 'Sign up';
+            } else {
+                tabBtns[1].classList.add('active');
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                document.getElementById('cardTitle').innerText = 'Create Account';
+                document.getElementById('cardSub').innerText = 'Start your free trial today.';
+                document.getElementById('footerText').innerText = "Already have an account?";
+                document.getElementById('footerLink').innerText = 'Login';
+            }
+        };
+
+        window.toggleMode = () => setMode(loginForm.classList.contains('hidden') ? 'login' : 'signup');
+        window.openModal = () => document.getElementById('forgotModal').classList.add('open');
+        window.closeModal = () => document.getElementById('forgotModal').classList.remove('open');
+    </script>
+</body>
+</html>

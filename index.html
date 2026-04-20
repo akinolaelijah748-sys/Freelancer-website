@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiverr Inbox AI CRM | Master Your Workflow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030303;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* THE AMAZING GREEN FLOW BACKGROUND */
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: #030303;
+            overflow: hidden;
+        }
+        
+        /* Flowing Aura Blobs */
+        .flow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            animation: drift 30s infinite alternate ease-in-out;
+        }
+        
+        .blob-1 { width: 80vw; height: 80vw; background: radial-gradient(circle, #1dbf73 0%, transparent 70%); top: -20%; left: -20%; animation-duration: 40s; }
+        .blob-2 { width: 60vw; height: 60vw; background: radial-gradient(circle, #0e7a4a 0%, transparent 70%); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .blob-3 { width: 40vw; height: 40vw; background: radial-gradient(circle, #1dbf73 0%, transparent 70%); top: 40%; left: 30%; animation-duration: 25s; animation-delay: -10s; opacity: 0.1; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }
+            66% { transform: translate(-5%, 20%) scale(0.9) rotate(-10deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
+
+        .fiverr-green { color: #1dbf73; }
+        .bg-fiverr-green { background-color: #1dbf73; }
+        .border-fiverr-green { border-color: #1dbf73; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* Alternate Marquee Animations */
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .animate-scroll-left { animation: scrollLeft 40s linear infinite; }
+        .animate-scroll-right { animation: scrollRight 40s linear infinite; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Step Line Animation */
+        .step-line {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #1dbf73 50%, transparent 100%);
+            z-index: 0;
+        }
+
+        /* AI Processor Card Glow */
+        .ai-card-glow {
+            box-shadow: 0 0 60px rgba(29, 191, 115, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .float { animation: float 6s infinite ease-in-out; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Texture Overlay */
+        .noise {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.02;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 5px; border: 2px solid #050505; }
+        ::-webkit-scrollbar-thumb:hover { background: #1dbf73; }
+        
+        /* Summarizer UI animation */
+        .pulse-border {
+            animation: border-pulse 2s infinite;
+        }
+        @keyframes border-pulse {
+            0% { border-color: rgba(29, 191, 115, 0.2); }
+            50% { border-color: rgba(29, 191, 115, 0.8); }
+            100% { border-color: rgba(29, 191, 115, 0.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise"></div>
+    <div class="bg-animate">
+        <div class="flow-blob blob-1"></div>
+        <div class="flow-blob blob-2"></div>
+        <div class="flow-blob blob-3"></div>
+    </div>
+
+    <nav class="fixed w-full z-50 glass border-b border-white/5 top-0">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-11 h-11 bg-fiverr-green rounded-xl flex items-center justify-center shadow-lg shadow-green-500/20">
+                        <i data-lucide="bot" class="text-white w-7 h-7"></i>
+                    </div>
+                    <span class="text-2xl font-black tracking-tighter">Fiverr<span class="fiverr-green">AI</span> CRM</span>
+                </div>
+                
+                <div id="auth-nav" class="hidden lg:flex space-x-10 items-center">
+                    <a href="#features" class="text-gray-400 hover:text-white transition font-medium">Features</a>
+                    <a href="#journey" class="text-gray-400 hover:text-white transition font-medium">Journey</a>
+                    <a href="#demo" class="text-gray-400 hover:text-white transition font-medium">Playground</a>
+                    <div class="h-6 w-px bg-white/10 mx-2"></div>
+                    
+                    <a href="login.html" class="text-white hover:text-fiverr-green transition font-bold">Login</a>
+                    <a href="login.html" class="bg-fiverr-green hover:bg-green-500 text-white px-8 py-3 rounded-2xl font-black transition shadow-xl shadow-green-500/20 hover:scale-105 transform">
+                        Sign Up Free
+                    </a>
+                </div>
+                
+                <button class="lg:hidden text-white"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-40 pb-20 lg:pt-56 lg:pb-32">
+        <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
+            <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border border-white/10 text-xs font-bold uppercase tracking-widest mb-10">
+                <span class="flex h-2.5 w-2.5 rounded-full bg-fiverr-green animate-pulse"></span>
+                Now Processing with GPT-4 Turbo
+            </div>
+            <h1 class="text-6xl lg:text-8xl font-black tracking-tight mb-8 leading-[0.95] text-white">
+                Inbox Management <br>
+                <span class="fiverr-green">Redefined for Fiverr.</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto mb-14 leading-relaxed font-medium">
+                The ultimate Chrome extension to manage your Fiverr inbox like a pro. Save time, scale faster, and never let an order slip through the cracks.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-24">
+                <a href="#" class="w-full sm:w-auto bg-fiverr-green hover:bg-green-500 text-white px-12 py-5 rounded-[2rem] text-xl font-black transition transform hover:scale-105 flex items-center justify-center gap-4 shadow-2xl shadow-green-500/40">
+                    Add to Chrome <i data-lucide="chrome" class="w-6 h-6"></i>
+                </a>
+                <a href="#demo" class="w-full sm:w-auto glass hover:bg-white/10 text-white px-12 py-5 rounded-[2rem] text-xl font-bold transition">
+                    View Interactive Demo
+                </a>
+            </div>
+
+            <div class="relative max-w-6xl mx-auto reveal">
+                <div class="absolute inset-0 bg-fiverr-green/5 blur-[120px] rounded-full"></div>
+                <div class="relative glass rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_0_120px_rgba(0,0,0,0.9)]">
+                    <div class="flex items-center justify-between px-8 py-5 bg-[#121212] border-b border-white/10">
+                        <div class="flex gap-2">
+                            <div class="w-3.5 h-3.5 rounded-full bg-[#ff5f56]"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e]"></div>
+                            <div class="w-3.5 h-3.5 rounded-full bg-[#27c93f]"></div>
+                        </div>
+                        <div class="bg-[#050505] px-8 py-2 rounded-full text-[12px] text-gray-500 font-mono w-2/5 flex items-center justify-center gap-3 border border-white/5">
+                           <i data-lucide="lock" class="w-3 h-3"></i> fiverr.com/inbox/active_user
+                        </div>
+                        <div class="flex gap-5 opacity-40">
+                            <div class="w-6 h-6 rounded-full bg-white/20"></div>
+                            <div class="w-6 h-6 rounded-full bg-white/20"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex h-[620px] bg-[#080808]">
+                        <div class="w-72 border-r border-white/10 p-8 space-y-10 hidden lg:block bg-[#0a0a0a]">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-gray-700 to-gray-900 border border-white/10"></div>
+                                <div class="space-y-2">
+                                    <div class="h-2 w-24 bg-white/10 rounded"></div>
+                                    <div class="h-1.5 w-16 bg-white/5 rounded"></div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-fiverr-green/10 border border-fiverr-green/30 rounded-2xl flex items-center gap-4">
+                                    <div class="w-3 h-3 rounded-full bg-fiverr-green shadow-[0_0_10px_#1dbf73]"></div>
+                                    <div class="h-2 w-32 bg-gray-400 rounded"></div>
+                                </div>
+                                <div class="p-4 flex items-center gap-4 opacity-20">
+                                    <div class="w-3 h-3 rounded-full bg-gray-700"></div>
+                                    <div class="h-2 w-28 bg-gray-700 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 p-12 relative flex flex-col justify-between">
+                            <div class="space-y-10 max-w-3xl mx-auto w-full">
+                                <div class="flex items-start gap-5">
+                                    <div class="w-14 h-14 rounded-full bg-[#1a1a1a] border border-white/10 shrink-0"></div>
+                                    <div class="bg-[#141414] p-7 rounded-[2.5rem] rounded-tl-none border border-white/5 text-left">
+                                        <p class="text-base text-gray-300 leading-relaxed font-medium">
+                                            Hello! I saw your Gig. Can you handle a high-volume project for a tech startup? We need it by Monday.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-5 justify-end">
+                                    <div class="bg-fiverr-green/10 border border-fiverr-green/20 p-7 rounded-[2.5rem] rounded-tr-none text-left relative shadow-2xl">
+                                        <p class="text-base text-white leading-relaxed font-semibold">
+                                            Hi! Absolutely. Monday is feasible if we finalize the brief today. I've sent over my custom onboarding link.
+                                        </p>
+                                        <div class="absolute -right-16 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-fiverr-green flex items-center justify-center shadow-2xl shadow-green-500/40">
+                                            <i data-lucide="check-circle" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="absolute top-24 right-12 w-[22rem] bg-[#1a1a1a]/95 backdrop-blur-3xl rounded-[3rem] border border-fiverr-green/50 p-10 ai-card-glow float z-30">
+                                <div class="flex items-center justify-between mb-8">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 bg-fiverr-green rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/20">
+                                            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                                        </div>
+                                        <span class="text-xs font-black uppercase tracking-[0.3em] text-white">AI Processor</span>
+                                    </div>
+                                    <div class="h-2.5 w-2.5 rounded-full bg-fiverr-green animate-pulse"></div>
+                                </div>
+                                <div class="space-y-8">
+                                    <div class="p-6 bg-black/50 rounded-3xl border border-white/5 shadow-inner">
+                                        <p class="text-[12px] text-gray-400 font-bold italic leading-relaxed text-center">
+                                            "Detected: Urgency (Monday Deadline). <br>Generating professional response with express fee..."
+                                        </p>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <button class="bg-[#222] border border-white/10 py-4 rounded-2xl text-[11px] font-black text-gray-300 hover:bg-white/10 transition uppercase tracking-widest">Preview</button>
+                                        <button class="bg-fiverr-green py-4 rounded-2xl text-[11px] font-black text-white shadow-xl shadow-green-500/30 hover:bg-green-500 transition uppercase tracking-widest">Apply Draft</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-full bg-[#0a0a0a] rounded-3xl border border-white/10 p-7 text-sm text-gray-500 flex items-center shadow-inner">
+                                Type your message...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 border-y border-white/5 bg-black/60 relative overflow-hidden">
+        <div class="text-center mb-12 relative z-10">
+            <h2 class="text-gray-500 uppercase tracking-[0.4em] text-[11px] font-black opacity-80">Trusted by Every Level of Excellence</h2>
+        </div>
+        
+        <div class="flex overflow-hidden mb-8">
+            <div class="flex whitespace-nowrap animate-scroll-left gap-8">
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-blue-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">New Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 1 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 2 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-yellow-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Top Rated Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-purple-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Agency Pro</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-blue-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">New Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 1 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 2 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-yellow-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Top Rated Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10 group hover:border-fiverr-green/50 transition cursor-default">
+                    <span class="w-3.5 h-3.5 rounded-full bg-purple-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Agency Pro</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex overflow-hidden">
+            <div class="flex whitespace-nowrap animate-scroll-right gap-8">
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-yellow-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Top Rated Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-purple-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Agency Pro</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-blue-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">New Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 2 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 1 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-yellow-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Top Rated Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-purple-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Agency Pro</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-blue-500"></span><span class="font-black text-sm uppercase tracking-tighter text-white">New Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 2 Seller</span>
+                </div>
+                <div class="flex items-center gap-4 px-10 py-5 glass rounded-[2rem] border-white/10">
+                    <span class="w-3.5 h-3.5 rounded-full bg-fiverr-green"></span><span class="font-black text-sm uppercase tracking-tighter text-white">Level 1 Seller</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <div class="w-12 h-12 bg-fiverr-green/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="list-checks" class="text-fiverr-green w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-5xl font-black mb-8 leading-tight">Stop Reading. <br><span class="fiverr-green">Start Briefing.</span></h2>
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed font-medium">
+                        Our AI scans the last 50 messages of any thread and produces a "Quick-Brief" in 0.5 seconds. Never miss a deadline or a specific buyer requirement again.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-fiverr-green/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-4 h-4 text-fiverr-green"></i>
+                            </div>
+                            <p class="text-sm font-bold text-gray-300 uppercase tracking-widest">Automatic Keyword Extraction</p>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-fiverr-green/20 flex items-center justify-center shrink-0">
+                                <i data-lucide="check" class="w-4 h-4 text-fiverr-green"></i>
+                            </div>
+                            <p class="text-sm font-bold text-gray-300 uppercase tracking-widest">Sentiment Analysis of Buyers</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative reveal">
+                    <div class="glass p-8 rounded-[3rem] border-fiverr-green/30 shadow-2xl pulse-border relative z-10">
+                        <div class="mb-6 flex items-center justify-between">
+                            <span class="text-xs font-black uppercase text-fiverr-green tracking-widest">AI Summary Generated</span>
+                            <span class="text-[10px] text-gray-500">Just now</span>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 group hover:bg-white/5 transition">
+                                <p class="text-xs font-black text-fiverr-green mb-1 uppercase">Goal</p>
+                                <p class="text-sm text-gray-300">Client wants a 5-page e-commerce site for a luxury jewelry brand.</p>
+                            </div>
+                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 group hover:bg-white/5 transition">
+                                <p class="text-xs font-black text-fiverr-green mb-1 uppercase">Deadline</p>
+                                <p class="text-sm text-gray-300">Hard stop by Monday 5:00 PM EST. Needs high priority.</p>
+                            </div>
+                            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 group hover:bg-white/5 transition">
+                                <p class="text-xs font-black text-fiverr-green mb-1 uppercase">Budget</p>
+                                <p class="text-sm text-gray-300">Fixed at $1,250 with potential for monthly maintenance.</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-8 border-t border-white/5 flex justify-center">
+                            <button class="text-xs font-black text-gray-400 hover:text-white uppercase tracking-widest flex items-center gap-2 transition">
+                                <i data-lucide="refresh-cw" class="w-3 h-3"></i> Rescan Conversation
+                            </button>
+                        </div>
+                    </div>
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-fiverr-green/10 blur-[80px]"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-fiverr-green/10 blur-[80px]"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 relative bg-black/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="flex-1 reveal order-2 lg:order-1">
+                    <div class="glass p-10 rounded-[3rem] border-white/10 shadow-2xl relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 p-8">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-fiverr-green opacity-20 group-hover:opacity-100 transition duration-500"></i>
+                        </div>
+                        <h4 class="text-sm font-black text-gray-500 uppercase tracking-[0.3em] mb-10">Revenue Performance</h4>
+                        <div class="space-y-8">
+                            <div class="flex items-end justify-between gap-4 h-48">
+                                <div class="flex-1 bg-white/5 rounded-t-xl h-[40%] group-hover:h-[45%] transition-all duration-700 relative flex flex-col items-center">
+                                    <span class="absolute -top-8 text-[10px] font-bold text-gray-600 uppercase">Wk 1</span>
+                                </div>
+                                <div class="flex-1 bg-white/5 rounded-t-xl h-[55%] group-hover:h-[60%] transition-all duration-700 relative flex flex-col items-center">
+                                    <span class="absolute -top-8 text-[10px] font-bold text-gray-600 uppercase">Wk 2</span>
+                                </div>
+                                <div class="flex-1 bg-fiverr-green/40 rounded-t-xl h-[70%] group-hover:h-[75%] transition-all duration-700 relative flex flex-col items-center border-t-2 border-fiverr-green">
+                                    <span class="absolute -top-8 text-[10px] font-bold text-fiverr-green uppercase">AI On</span>
+                                </div>
+                                <div class="flex-1 bg-fiverr-green rounded-t-xl h-[90%] group-hover:h-[95%] transition-all duration-700 relative flex flex-col items-center shadow-[0_-10px_30px_rgba(29,191,115,0.3)]">
+                                    <span class="absolute -top-8 text-[10px] font-black text-white uppercase">Now</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center pt-8 border-t border-white/5">
+                                <div>
+                                    <p class="text-[10px] font-bold text-gray-500 uppercase">Avg. Conversion</p>
+                                    <p class="text-2xl font-black text-white">+142%</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] font-bold text-gray-500 uppercase">Time Saved</p>
+                                    <p class="text-2xl font-black text-white">28h/mo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 reveal order-1 lg:order-2">
+                    <div class="w-12 h-12 bg-fiverr-green/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="bar-chart-big" class="text-fiverr-green w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-5xl font-black mb-8 leading-tight">Scale Your <br><span class="fiverr-green">Profit Velocity.</span></h2>
+                    <p class="text-gray-400 text-lg mb-10 leading-relaxed font-medium">
+                        Speed equals rankings. Rankings equal orders. AI Inbox CRM ensures your response time stays under 5 minutes, keeping you at the top of Fiverr's search results effortlessly.
+                    </p>
+                    <a href="#" class="inline-flex items-center gap-3 text-white font-black uppercase tracking-widest text-sm hover:text-fiverr-green transition">
+                        Explore Revenue Metrics <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h2 class="text-4xl lg:text-6xl font-black mb-6 tracking-tight">The "Fiverr Chaos" vs <span class="fiverr-green italic">AI Calm</span></h2>
+                <p class="text-gray-400 text-lg max-w-xl mx-auto">Why 5,000+ top sellers made the switch this month.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="glass p-10 rounded-[3rem] border-red-500/20 bg-red-500/5 reveal">
+                    <h4 class="text-2xl font-black mb-8 flex items-center gap-3 text-red-400">
+                        <i data-lucide="skull" class="w-6 h-6"></i> Before AI CRM
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-1"></i>
+                            <p class="text-gray-400">Spending 4+ hours daily manually typing the same replies.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-1"></i>
+                            <p class="text-gray-400">Missing important buyer requirements in long chat threads.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-1"></i>
+                            <p class="text-gray-400">Forgetting buyer preferences from orders 3 months ago.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="x-circle" class="w-5 h-5 text-red-500 shrink-0 mt-1"></i>
+                            <p class="text-gray-400">Dropping in Search Rankings due to slow response times.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="glass p-10 rounded-[3rem] border-fiverr-green/20 bg-fiverr-green/5 reveal" style="transition-delay: 0.2s">
+                    <h4 class="text-2xl font-black mb-8 flex items-center gap-3 text-fiverr-green">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i> With Inbox AI CRM
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-fiverr-green shrink-0 mt-1"></i>
+                            <p class="text-white font-medium">Replying in 2 seconds with context-aware AI suggestions.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-fiverr-green shrink-0 mt-1"></i>
+                            <p class="text-white font-medium">Instant 3-bullet summaries of every conversation.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-fiverr-green shrink-0 mt-1"></i>
+                            <p class="text-white font-medium">Persistent Buyer Notes that follow the user across Fiverr.</p>
+                        </li>
+                        <li class="flex gap-4 items-start">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-fiverr-green shrink-0 mt-1"></i>
+                            <p class="text-white font-medium">100% Response Rate badge guaranteed with speed.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-32 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-24 reveal">
+                <h2 class="text-5xl font-black mb-6">Unrivaled Power</h2>
+                <p class="text-gray-500 text-xl font-medium">Features designed specifically for high-volume Fiverr operations.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="brain-circuit" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight">Adaptive AI Learning</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Our engine doesn't just reply; it learns from your top-performing orders to replicate your unique selling voice perfectly.</p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal" style="transition-delay: 0.1s">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="layout-dashboard" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight text-white">Revenue Dashboard</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Track how many conversions the AI helped you close. View projected vs actual earnings directly in your extension.</p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal" style="transition-delay: 0.2s">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="database" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight text-white">Cross-Device CRM</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Saved notes and buyer tags sync instantly to your mobile app and desktop browsers. Never lose data again.</p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="languages" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight text-white">Universal Translator</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Receive messages in any language and reply back in their native tongue with professional, polished grammar.</p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal" style="transition-delay: 0.1s">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="bar-chart-3" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight text-white">Performance Audit</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">AI analyzes your conversion rates and suggests price adjustments based on buyer feedback trends.</p>
+                </div>
+                <div class="glass p-10 rounded-[2.5rem] border-white/5 hover:border-fiverr-green/40 transition-all group reveal" style="transition-delay: 0.2s">
+                    <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition shadow-inner">
+                        <i data-lucide="shield-check" class="text-fiverr-green w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 tracking-tight text-white">TOS Shield</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Automatic detection of restricted keywords (like emails or outside links) to keep your account 100% safe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="journey" class="py-40 relative bg-[#070707]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-32 reveal">
+                <h2 class="text-5xl font-black mb-6">The Implementation Journey</h2>
+                <p class="text-gray-500 text-lg max-w-2xl mx-auto font-medium">Four high-impact steps to scale your Fiverr business operations from zero to enterprise-grade.</p>
+            </div>
+
+            <div class="relative max-w-6xl mx-auto">
+                <div class="hidden lg:block step-line"></div>
+                
+                <div class="grid lg:grid-cols-4 gap-16 lg:gap-8 relative z-10">
+                    <div class="text-center reveal">
+                        <div class="w-24 h-24 rounded-full bg-fiverr-green flex items-center justify-center text-white text-4xl font-black shadow-[0_0_50px_rgba(29,191,115,0.6)] mb-10 mx-auto border-4 border-[#050505] transition hover:scale-110">1</div>
+                        <h4 class="text-2xl font-black mb-6">Enterprise Deployment</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed px-2 font-medium">Install the Chrome extension with enterprise-grade security protocols. Zero configuration required for immediate value.</p>
+                    </div>
+                    <div class="text-center reveal" style="transition-delay: 0.1s">
+                        <div class="w-24 h-24 rounded-full bg-fiverr-green flex items-center justify-center text-white text-4xl font-black shadow-[0_0_50px_rgba(29,191,115,0.6)] mb-10 mx-auto border-4 border-[#050505] transition hover:scale-110">2</div>
+                        <h4 class="text-2xl font-black mb-6">AI Integration</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed px-2 font-medium">Our AI automatically integrates with your Fiverr inbox, learning your communication style and business context.</p>
+                    </div>
+                    <div class="text-center reveal" style="transition-delay: 0.2s">
+                        <div class="w-24 h-24 rounded-full bg-fiverr-green flex items-center justify-center text-white text-4xl font-black shadow-[0_0_50px_rgba(29,191,115,0.6)] mb-10 mx-auto border-4 border-[#050505] transition hover:scale-110">3</div>
+                        <h4 class="text-2xl font-black mb-6">Intelligence Activation</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed px-2 font-medium">Activate AI intelligence to start generating perfect responses, managing conversations, and tracking revenue metrics.</p>
+                    </div>
+                    <div class="text-center reveal" style="transition-delay: 0.3s">
+                        <div class="w-24 h-24 rounded-full bg-fiverr-green flex items-center justify-center text-white text-4xl font-black shadow-[0_0_50px_rgba(29,191,115,0.6)] mb-10 mx-auto border-4 border-[#050505] transition hover:scale-110">4</div>
+                        <h4 class="text-2xl font-black mb-6">Scale Operations</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed px-2 font-medium">Scale your business operations with intelligent automation, advanced analytics, and enterprise-grade efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+                <div class="reveal">
+                    <div class="text-5xl font-black fiverr-green mb-4">85%</div>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">Reduction in typing</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s">
+                    <div class="text-5xl font-black fiverr-green mb-4">2.4x</div>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">Faster Response Time</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s">
+                    <div class="text-5xl font-black fiverr-green mb-4">$12k+</div>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">Avg. Saved Annual labor</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s">
+                    <div class="text-5xl font-black fiverr-green mb-4">100%</div>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">Safe for your account</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="demo" class="py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-24 items-center">
+                <div class="reveal">
+                    <h2 class="text-5xl font-black mb-8">Interactive Playground</h2>
+                    <p class="text-gray-400 mb-12 text-xl leading-relaxed">Don't just take our word for it. Pick a template below to see how our AI suggests high-conversion responses in real-time.</p>
+                    <div class="flex flex-wrap gap-5">
+                        <button onclick="applyTemplate('professional')" class="px-8 py-5 glass rounded-[1.5rem] border-white/10 hover:border-fiverr-green transition text-sm flex items-center gap-4 font-black uppercase tracking-widest shadow-xl text-white">
+                            <i data-lucide="briefcase" class="w-5 h-5 text-fiverr-green"></i> Professional Intro
+                        </button>
+                        <button onclick="applyTemplate('upsell')" class="px-8 py-5 glass rounded-[1.5rem] border-white/10 hover:border-fiverr-green transition text-sm flex items-center gap-4 font-black uppercase tracking-widest shadow-xl text-white">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-fiverr-green"></i> Upsell Package
+                        </button>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <div class="glass rounded-[3rem] overflow-hidden shadow-2xl bg-[#0a0a0a] border-white/10">
+                        <div class="p-8 border-b border-white/5 bg-white/[0.02] flex justify-between items-center">
+                            <div class="flex items-center gap-5">
+                                <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center font-black text-lg">JD</div>
+                                <span class="font-black text-base text-white">John Doe <span class="text-xs text-gray-500 ml-2 font-medium uppercase">Active</span></span>
+                            </div>
+                            <div class="flex gap-6 opacity-30 text-white"><i data-lucide="video" class="w-5 h-5"></i><i data-lucide="star" class="w-5 h-5"></i></div>
+                        </div>
+                        <div id="thread" class="p-10 h-[400px] overflow-y-auto space-y-6">
+                            <div class="flex gap-4">
+                                <div class="bg-white/5 p-6 rounded-[2rem] rounded-tl-none max-w-[85%] text-base text-gray-300 font-medium">
+                                    Hey! I'm looking for a premium brand identity for my new startup. Do you offer source files?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 bg-black/40 border-t border-white/10">
+                            <div class="relative">
+                                <textarea id="inbox-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 pr-40 text-base text-white focus:outline-none focus:border-fiverr-green transition resize-none h-28 font-medium" placeholder="AI is waiting for your input..."></textarea>
+                                <button onclick="sendMessage()" class="absolute right-4 bottom-4 bg-fiverr-green hover:bg-green-500 text-white px-8 py-3 rounded-2xl text-xs font-black transition flex items-center gap-3 shadow-2xl shadow-green-500/20 uppercase tracking-widest">
+                                    SEND <i data-lucide="send" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 bg-fiverr-green/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="glass p-16 rounded-[4rem] border-fiverr-green/10 relative overflow-hidden text-center reveal">
+                <div class="absolute inset-0 bg-fiverr-green/5 blur-[100px] pointer-events-none"></div>
+                <h2 class="text-4xl font-black mb-8 text-white">Account Safety First.</h2>
+                <p class="text-gray-400 text-lg mb-16 max-w-2xl mx-auto">We are Fiverr Sellers too. We designed this to work as an assistive layer, not a bot. It adheres to all Fiverr TOS guidelines.</p>
+                
+                <div class="grid lg:grid-cols-3 gap-12">
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="shield" class="w-12 h-12 text-fiverr-green mb-6"></i>
+                        <h5 class="text-xl font-bold mb-3 text-white">No Automation Bots</h5>
+                        <p class="text-gray-500 text-sm">Every reply is triggered and approved by you. We never act without your permission.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="lock" class="w-12 h-12 text-fiverr-green mb-6"></i>
+                        <h5 class="text-xl font-bold mb-3 text-white">Encrypted Data</h5>
+                        <p class="text-gray-500 text-sm">Your conversation data is AES-256 encrypted and never sold to third parties.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <i data-lucide="cpu" class="w-12 h-12 text-fiverr-green mb-6"></i>
+                        <h5 class="text-xl font-bold mb-3 text-white">Local Processing</h5>
+                        <p class="text-gray-500 text-sm">All sensitive inbox parsing happens locally in your browser extension environment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-24 border-t border-white/5 bg-black relative">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-16 text-sm">
+            <div class="col-span-2">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 bg-fiverr-green rounded-xl flex items-center justify-center shadow-lg shadow-green-500/10">
+                        <i data-lucide="bot" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="text-2xl font-black tracking-tighter text-white">Fiverr AI CRM</span>
+                </div>
+                <p class="text-gray-500 max-w-sm leading-relaxed text-base font-medium">The definitive AI-powered workspace built exclusively for the elite Fiverr seller community. Optimized for growth, security, and speed.</p>
+            </div>
+            <div>
+                <h5 class="font-black text-white mb-8 uppercase tracking-widest text-xs">Platform</h5>
+                <ul class="space-y-5 text-gray-500 font-bold">
+                    <li><a href="#" class="hover:text-fiverr-green transition">Chrome Extension</a></li>
+                    <li><a href="#" class="hover:text-fiverr-green transition">Security Protocols</a></li>
+                    <li><a href="#" class="hover:text-fiverr-green transition">Feature Roadmap</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="font-black text-white mb-8 uppercase tracking-widest text-xs">Resources</h5>
+                <ul class="space-y-5 text-gray-500 font-bold">
+                    <li><a href="#" class="hover:text-fiverr-green transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-fiverr-green transition">Seller Stories</a></li>
+                    <li><a href="#" class="hover:text-fiverr-green transition">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-24 pt-12 border-t border-white/5 text-[11px] text-gray-800 font-black uppercase tracking-[0.3em]">
+            &copy; 2026 Fiverr Inbox AI CRM. Not affiliated with Fiverr International Ltd.
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpPcl60w8ca2_10ZtxjfQ8jEQVkVZRCgo",
+            authDomain: "my-awesome-site-6e399.firebaseapp.com",
+            projectId: "my-awesome-site-6e399",
+            storageBucket: "my-awesome-site-6e399.firebasestorage.app",
+            messagingSenderId: "728415452053",
+            appId: "1:728415452053:web:1649c583f80343bc8c549c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to update AI Tone settings for the extension
+        window.updateExtensionSettings = async (tone) => {
+            try {
+                await setDoc(doc(db, "settings", "akinola_user_settings"), {
+                    active_tone: tone,
+                    timestamp: new Date()
+                });
+                console.log("Database updated: Extension will now use " + tone + " tone.");
+            } catch (e) {
+                console.error("Error updating database: ", e);
+            }
+        };
+
+        // UI Logic
+        lucide.createIcons();
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active'); 
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const templates = {
+            professional: "Hi John! Thanks for reaching out. Yes, absolutely. My premium brand identity package includes all industry-standard source files (AI, EPS, SVG, and PDF). Would you like to see some recent startup case studies?",
+            upsell: "That's a great question! For a startup, I highly recommend our 'Brand Growth Kit' add-on. It includes social media guidelines and a full brand book. Shall I add that to the proposal?"
+        };
+
+        const input = document.getElementById('inbox-input');
+        const thread = document.getElementById('thread');
+
+        window.applyTemplate = function(type) {
+            const msg = templates[type];
+            input.value = "";
+            let i = 0;
+            const typer = setInterval(() => {
+                input.value += msg[i];
+                i++;
+                if (i >= msg.length) {
+                    clearInterval(typer);
+                    // This tells Firebase which tone you picked!
+                    window.updateExtensionSettings(type);
+                }
+            }, 10);
+        };
+
+        window.sendMessage = function() {
+            const val = input.value.trim();
+            if (!val) return;
+            const bubble = document.createElement('div');
+            bubble.className = "flex gap-4 justify-end";
+            bubble.innerHTML = `
+                <div class="bg-fiverr-green/10 border border-fiverr-green/30 p-6 rounded-[2rem] rounded-tr-none max-w-[85%] text-base text-white font-semibold shadow-xl">
+                    ${val}
+                </div>
+            `;
+            thread.appendChild(bubble);
+            input.value = "";
+            thread.scrollTop = thread.scrollHeight;
+        };
+    </script>
+</body>
+</html>

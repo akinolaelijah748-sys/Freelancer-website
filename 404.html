@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Not Found - Fiverr Inbox AI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0B1121 0%, #0f172a 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: #0f172a;
+            border-radius: 24px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+            padding: 32px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 32px;
+        }
+        
+        .error-code {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        
+        .error-code .code {
+            font-size: 72px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .error-code .message {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+        
+        .info-box {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            border-left: 4px solid #4f46e5;
+        }
+        
+        .info-box h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #818cf8;
+        }
+        
+        .endpoint {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            border: 1px solid #334155;
+        }
+        
+        .endpoint .method {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .method.post {
+            background: #10b981;
+            color: white;
+        }
+        
+        .method.get {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .endpoint .url {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #94a3b8;
+            margin: 8px 0;
+            word-break: break-all;
+        }
+        
+        .endpoint .description {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-top: 8px;
+        }
+        
+        .code-block {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        
+        .code-block pre {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #a78bfa;
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .footer {
+            background: #1e293b;
+            padding: 20px 32px;
+            text-align: center;
+            border-top: 1px solid #334155;
+        }
+        
+        .footer a {
+            color: #818cf8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        hr {
+            border-color: #334155;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .content {
+                padding: 20px;
+            }
+            .header {
+                padding: 24px;
+            }
+            .error-code .code {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔌 Fiverr Inbox AI API</h1>
+            <p>AI-powered assistant for Fiverr sellers</p>
+        </div>
+        
+        <div class="content">
+            <div class="error-code">
+                <div class="code">404</div>
+                <div class="message">API Endpoint Not Found</div>
+            </div>
+            
+            <div class="info-box">
+                <h3>📡 Available API Endpoints</h3>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 16px;">The requested endpoint was not found. Use one of the following:</p>
+                
+                <div class="endpoint">
+                    <span class="method post">POST</span>
+                    <strong>/api/track-usage</strong>
+                    <div class="url">https://my-awesome-site-6e399.firebaseapp.com/api/track-usage</div>
+                    <div class="description">Track AI tool usage from the Chrome extension</div>
+                    <div class="code-block">
+                        <pre>{
+  "userId": "user123",
+  "tool": "aiAgent",
+  "dayIndex": 1,
+  "timestamp": "2024-01-01T00:00:00.000Z"
+}</pre>
+                    </div>
+                    <div class="description">
+                        <strong>Tools:</strong> aiAgent, grammar, summarise, translate<br>
+                        <strong>Day Index:</strong> 0=Monday, 1=Tuesday, ... 6=Sunday
+                    </div>
+                </div>
+                
+                <div class="endpoint">
+                    <span class="method get">GET</span>
+                    <strong>/api/track-usage</strong>
+                    <div class="url">https://my-awesome-site-6e399.firebaseapp.com/api/track-usage?userId=xxx</div>
+                    <div class="description">Retrieve usage data for a specific user</div>
+                    <div class="code-block">
+                        <pre>Response:
+{
+  "success": true,
+  "usage": {
+    "aiAgent": [2, 3, 1, 0, 4, 2, 1],
+    "grammarFix": [1, 0, 2, 1, 3, 0, 1],
+    "summarise": [0, 1, 0, 2, 1, 0, 0],
+    "translate": [0, 0, 0, 0, 0, 0, 0]
+  }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            
+            <div class="info-box">
+                <h3>📖 Example Usage</h3>
+                <div class="code-block">
+                    <pre># Track AI Agent usage
+curl -X POST https://my-awesome-site-6e399.firebaseapp.com/api/track-usage \
+  -H "Content-Type: application/json" \
+  -d '{"userId":"user123","tool":"aiAgent","dayIndex":1}'
+
+# Get usage data
+curl https://my-awesome-site-6e399.firebaseapp.com/api/track-usage?userId=user123</pre>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <h3>📦 Need Help?</h3>
+                <p style="font-size: 13px; color: #94a3b8;">
+                    • Make sure you're using the correct endpoint URL<br>
+                    • Check that your extension is installed and up to date<br>
+                    • Verify that your userId is correct<br>
+                    • Day index should be between 0 and 6
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <a href="/dashboard.html">← Back to Dashboard</a>
+            <span style="color: #475569; margin: 0 12px;">|</span>
+            <a href="https://my-awesome-site-6e399.firebaseapp.com">Visit Website</a>
+        </div>
+    </div>
+</body>
+</html>
